@@ -2,48 +2,73 @@ import 'package:flutter/material.dart';
 
 double adapter({required Map breakpoints, required double width})
 {
-  int largeScreenSize = 1366;
-  int customScreenSize = 1100;
-  int mediumScreenSize = 768;
-  int smallScreenSize = 576;
-  int xtraScreenSize = 360;
-  Map br = {};
+  int ultraLargeScreenSize = 2000; //=> ul
+  int extraLargeScreenSize = 1200; //=> xl
+  int largeScreenSize = 992; //=> lg
+  int mediumScreenSize = 768; //=> md
+  int smallScreenSize = 576; //=> sm
+  int extraSmallScreenSize = 360; //=> xs
+  int ultraSmallScreenSize = 280; //=> us
   //converts the map data into double
   breakpoints.forEach((key, value)
   {
-    br[key] = value.toDouble();
+    breakpoints[key] = value.toDouble();
   });
-
-  if(width >= largeScreenSize)
+  //size of the widget
+  double widgetSize = 0;
+  //for ul
+  if(width>=ultraLargeScreenSize)
   {
-    return br['lg'];
-  }
-  else if(customScreenSize <= width  && width < largeScreenSize)
+    widgetSize = breakpoints["ul"]?? breakpoints['sm'];
+  }//for xl
+  else if(width<ultraLargeScreenSize && width>= extraLargeScreenSize)
   {
-    return br['cs'];
-  }
-  else if(mediumScreenSize <= width && width < customScreenSize)
+    widgetSize = breakpoints["xl"]?? breakpoints['sm'];
+  }//for lg
+  else if(width<extraLargeScreenSize && width>=largeScreenSize)
   {
-    return br['md'];
-  }
-  else if(xtraScreenSize <= width && width < smallScreenSize)
+    widgetSize = breakpoints['lg']?? breakpoints['sm'];
+  }//for md
+  else if(width<largeScreenSize && width>= mediumScreenSize)
   {
-    return br['xs'] != null ? br['xs'] : br['sm'];
-  }
+    widgetSize = breakpoints['md']?? breakpoints['sm'];
+  }//for sm
+  else if(width<mediumScreenSize && width>= smallScreenSize)
+  {
+    widgetSize = breakpoints['sm'];
+  }//for xs
+  else if(width<smallScreenSize && width>=extraSmallScreenSize)
+  {
+    widgetSize = breakpoints['xs']?? breakpoints['sm'];
+  }//for us
   else
   {
-    return br['sm'];
+    widgetSize = breakpoints['us']?? breakpoints['sm'];
   }
+  return widgetSize;
 }
 
+/**
+ * defines the size of a widget through passed breakpoints parameters
+ * Differents available breakpoints are:
+ * ul
+ * xl
+ * lg
+ * md
+ * sm
+ * xs
+ * us
+ *
+ * */
 double Width({required var context, required Map breakpoints})
 {
   //defining constant values for the screen sizes
   late double _width;
+  //if the context is from a layout builder constraints
   if(context is BoxConstraints)
   {
     _width = context.maxWidth;
-  }
+  }//when it is a context of a frame
   else
   {
     _width = MediaQuery.of(context).size.width;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:siteco_external/widgets/responsive.dart';
 
 void main() {
   runApp(const MyApp());
@@ -97,6 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
+            ),
+            Container(
+              color: Colors.blueAccent,
+              height: 40,
+              width: Width(context: context, breakpoints: {"xs": 3, "sm": 4, "md": 6, "lg": 8, 'xl': 9}),
             ),
             Text(
               '$_counter',
