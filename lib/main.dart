@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/home.dart';
+import 'package:siteco_external/project_setup.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,9 +20,10 @@ void main() {
             onBackground: Color(0xFF707070),
             surface: Color(0xFFFFFFFF),
             onSurface: Color(0xFF707070))),
-    initialRoute: '/',
+    initialRoute: '/project_setup',
     routes: {
       '/': (context) => const Home(),
+      '/project_setup': (context) => const ProjectStup(),
     },
   ));
 }
