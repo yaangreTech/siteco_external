@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:siteco_external/colors/colors.dart';
 import 'package:siteco_external/widgets/responsive.dart';
 
 //input + label
@@ -139,6 +140,36 @@ class _SelectState extends State<Select> {
           ),
         ],
       ),
+    );
+  }
+}
+
+//labelled radio button
+class LabeledRadio extends StatefulWidget {
+  late String label;
+  late var group;
+  late Function? onChanged;
+  LabeledRadio({Key? key, required this.label, required this.group, this.onChanged}) : super(key: key);
+
+  @override
+  State<LabeledRadio> createState() => _LabeledRadioState();
+}
+
+class _LabeledRadioState extends State<LabeledRadio> {
+
+  @override
+  Widget build(BuildContext context) {
+    var group = widget.group;
+    String label = widget.label;
+    Function? onChanged = widget.onChanged;
+    return Row(
+      children: [
+        Radio(value: label, fillColor: MaterialStateProperty.all(Colors.black87), groupValue: group, onChanged: (_)
+        {
+          onChanged?.call(_);
+        }),
+        Text(label, style: TextStyle(color: red, fontWeight: FontWeight.bold, fontSize: 18),)
+      ],
     );
   }
 }

@@ -23,7 +23,7 @@ void main() {
     initialRoute: '/project_setup',
     routes: {
       '/': (context) => const Home(),
-      '/project_setup': (context) => const ProjectStup(),
+      '/project_setup': (context)=>ProjectSetup(),
     },
   ));
 }

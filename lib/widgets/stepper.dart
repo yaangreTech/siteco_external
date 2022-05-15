@@ -32,9 +32,10 @@ class _CustStepperState extends State<CustStepper> {
       setState(() {
         currentStep++;
       });
+      controller.animateToPage(currentStep,
+          duration: Duration(milliseconds: 1000), curve: Curves.easeInOut);
     }
-    controller.animateToPage(currentStep,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeInOut);
+
   }
 
   //decreases the current step of the stepper
@@ -45,9 +46,9 @@ class _CustStepperState extends State<CustStepper> {
       setState(() {
         currentStep--;
       });
+      controller.animateToPage(currentStep,
+          duration: Duration(milliseconds: 1000), curve: Curves.easeInOut);
     }
-    controller.animateToPage(currentStep,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeInOut);
   }
 
   //underlined text widget
@@ -100,7 +101,7 @@ class _CustStepperState extends State<CustStepper> {
                   //physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index)
                   {
-                    return frames[currentStep].frame;
+                    return frames[index].frame;
                   }),
             ),
           ),
