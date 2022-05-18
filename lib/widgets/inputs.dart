@@ -168,7 +168,7 @@ class _LabeledRadioState extends State<LabeledRadio> {
         {
           onChanged?.call(_);
         }),
-        Text(label, style: TextStyle(color: red, fontWeight: FontWeight.bold, fontSize: 18),)
+        Flexible(child: Text(label, style: TextStyle(color: red, fontWeight: FontWeight.bold, fontSize: 18),))
       ],
     );
   }

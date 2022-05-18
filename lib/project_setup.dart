@@ -51,9 +51,9 @@ class Frame1 extends StatefulWidget {
 class _Frame1State extends State<Frame1> {
   var group = "830";
   //default mounted image
-  late String selectedountingImage;
-  //list of mounting images
-  List mountingImages = ["images/csm_Siteco_Sirius_Stage.jpg", "images/csm_Siteco_Sport.jpg", "images/landing.jpg", "images/siteco.jpg", "images/csm_Siteco_Sirius_Stage.jpg", "images/csm_Siteco_Sport.jpg", "images/landing.jpg", "images/siteco.jpg"];
+  late String selectedMountingImage;
+  //list of mounting light_distribution
+  List mountingImages = ["assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg", "assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg"];
   //returns the radio button and its coulorized container
   Widget ColorSelectorItem({required BuildContext context, required String radioLabel, required Widget colorizedContainer})
   {
@@ -97,7 +97,7 @@ class _Frame1State extends State<Frame1> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedountingImage = mountingImages[0];
+    selectedMountingImage = mountingImages[0];
     var _controller = ScrollController();
     mountingImageAlertBoxContainer = Container(
         height: double.infinity,
@@ -118,7 +118,7 @@ class _Frame1State extends State<Frame1> {
                     {
                       //updates the mounting image
                       setState(() {
-                        selectedountingImage = imagePath;
+                        selectedMountingImage = imagePath;
                       });
                     },
                     child: Container(
@@ -199,7 +199,7 @@ class _Frame1State extends State<Frame1> {
                                           child: Container(
                                               height: 180.0,
                                               //width: 180.0,
-                                              child: Center(child: Image(image: AssetImage(selectedountingImage), fit: BoxFit.scaleDown,))),
+                                              child: Center(child: Image(image: AssetImage(selectedMountingImage), fit: BoxFit.scaleDown,))),
                                         ),
                                       ),
                                     ),
