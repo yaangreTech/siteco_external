@@ -4,7 +4,7 @@ import 'package:siteco_external/colors/colors.dart';
 import 'package:siteco_external/widgets/responsive.dart';
 
 //input + label
-Widget InputLabel({required var context, required String label, required breakpoints, required Function onChanged, int maxLines = 1, TextInputType keyboardType = TextInputType.text, int? maxLength= null, String defaultValue = '', String alignment = 'column', List inputFormatters = const []})
+Widget InputLabel({required var context, required String label, required breakpoints, required Function onChanged, int maxLines = 1, TextInputType keyboardType = TextInputType.text, int? maxLength= null, String defaultValue = '', String hintText = '', String alignment = 'column', List inputFormatters = const []})
 {
   return MixedContainer(
       context: context,
@@ -13,7 +13,7 @@ Widget InputLabel({required var context, required String label, required breakpo
         //Label(context: context, label: label),
         Text(label),
         SizedBox(height: 10,),
-        Input(maxLines: maxLines, maxLength: maxLength, keyboardType: keyboardType, onChanged: onChanged, defaultValue: defaultValue.toString(), inputFormatters: inputFormatters),
+        Input(maxLines: maxLines, maxLength: maxLength, keyboardType: keyboardType, onChanged: onChanged, defaultValue: defaultValue.toString(), inputFormatters: inputFormatters, hintText: hintText),
       ],
       alignment: alignment
   );
@@ -33,7 +33,7 @@ Widget SelectLabel({required var context, required String label, required Map br
 }
 
 //widget for the input
-Widget Input({required int maxLines, int? maxLength, required TextInputType keyboardType, required Function onChanged, String defaultValue = '', List inputFormatters = const []})
+Widget Input({required int maxLines, int? maxLength, required TextInputType keyboardType, required Function onChanged, String hintText = '', String defaultValue = '', List inputFormatters = const []})
 {
   TextEditingController controller = TextEditingController(text: defaultValue);
   return Container(
@@ -50,6 +50,7 @@ Widget Input({required int maxLines, int? maxLength, required TextInputType keyb
       keyboardType: keyboardType,
       cursorColor: Colors.black,
       decoration: InputDecoration(
+          hintText: hintText,
           contentPadding: EdgeInsets.all(10),
           fillColor: Colors.white,
           hoverColor: Colors.white,

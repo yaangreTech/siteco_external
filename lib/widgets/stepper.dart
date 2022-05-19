@@ -98,7 +98,7 @@ class _CustStepperState extends State<CustStepper> {
               child: PageView.builder(
                   controller: controller,
                   itemCount: frames.length,
-                  //physics: NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index)
                   {
                     return frames[index].frame;
@@ -106,7 +106,7 @@ class _CustStepperState extends State<CustStepper> {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

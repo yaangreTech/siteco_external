@@ -1,13 +1,11 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/colors/colors.dart';
 import 'package:siteco_external/functions/global_key_extension.dart';
-import 'package:siteco_external/functions/path.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
 import 'package:siteco_external/widgets/responsive.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 //stful widget for advanced config
 class AdvancedConfigAlertBox extends StatefulWidget {
@@ -20,7 +18,7 @@ class AdvancedConfigAlertBox extends StatefulWidget {
 class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
   var alertRadioGroup_luminairs_length = "600";
   var alertRadioGroup_light_diffusion = "Diffuse";
-  double sliderValue = 500;
+  List sliderValue = [500, 900];
   //list of mounting light_distribution
   List licrossImages = ["assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg", "assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg"];
   late String selectedImage;
@@ -38,7 +36,12 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
       width: width,
       child: Column(
         children: [
-          LabeledRadio(label: label, group: alertRadioGroup_light_diffusion),
+          LabeledRadio(label: label, group: alertRadioGroup_light_diffusion, onChanged: (_)
+          {
+            setState(() {
+              alertRadioGroup_light_diffusion = _;
+            });
+          }),
           Center(
             child: Image(image: AssetImage(imagePath)),
           )
@@ -46,6 +49,24 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
       ),
     );
   }
+
+  // We create the tooltip on the first use
+  var tooltip = SuperTooltip(
+  popupDirection: TooltipDirection.right,
+  maxWidth: 200.0,
+  showCloseButton: ShowCloseButton.inside,
+  closeButtonColor: Colors.red,
+  content: Material(
+    elevation: 1,
+  child: Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Text(
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
+  "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
+  "sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+  softWrap: true,
+  ))),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -138,22 +159,31 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                           children: [
                             Text("Lumen:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                             SizedBox(width: 10,),
-                            Text(sliderValue.toString(), style: TextStyle(color: red, fontWeight: FontWeight.bold, fontSize: 18))
+                            Text("${sliderValue[0]} - ${sliderValue[1]}", style: TextStyle(color: red, fontWeight: FontWeight.bold, fontSize: 18))
                           ],
                         ),
                         Container(
                           width: double.infinity,
-                          child: CupertinoSlider(
-                            value: sliderValue,
-                             thumbColor: redLowOpacity,
-                            min: 500, max: 900, onChanged: (_)
+                          child: CupertinoRangeSlider(
+                            activeColor: red,
+                            trackColor: grey,
+                            thumbColor: redLowOpacity,
+                            onMaxChanged: (_)
                             {
                               setState(() {
-                                sliderValue = _.roundToDouble();
+                                sliderValue[1] = _.round();
                               });
-
-                            }),
-                        ),
+                            },
+                            onMinChanged: (_)
+                            {
+                              setState(() {
+                                sliderValue[0] = _.round();
+                              });
+                            },
+                            min: 500.0,
+                            max: 900.0,
+                            minValue: sliderValue[0].toDouble(), maxValue:sliderValue[1].toDouble()),
+                          ),
                         //control
                         Text("Control", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         Select(options: ["Dali", "___"], onChanged: (_)
@@ -178,65 +208,68 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                                 //height of the popup
                                 var popupHeight = containerKey.globalPaintBounds!.top;
 
-                                showDialog(context: context,
-                                    barrierColor: Colors.transparent,
-                                    builder: (context)
-                                    {
-                                      ScrollController controller = ScrollController();
-                                      return Stack(
-                                        children: [
-                                          Positioned(bottom:licrossBtn_y, left: (licrossBtn_x+licrossBtnWidth),child: ConstrainedBox(
-                                            constraints: BoxConstraints(maxWidth: 250, ),
-                                            child: Dialog(elevation: 2,
-                                                child: Container(width: 160, height: licrossBtn_y-popupHeight,
-                                                  child: RawScrollbar(
-                                                    radius: Radius.circular(20),
-                                                    isAlwaysShown: true,
-                                                    thumbColor: red,
-                                                    controller: controller,
-                                                    child: SingleChildScrollView(
-                                                      controller: controller,
-                                                      child: Column(
-                                                        children: licrossImages.map((image)
-                                                        {
-                                                          return InkWell(
-                                                            onTap: ()
-                                                            {
-                                                              setState(() {
-                                                                selectedImage = image;
-                                                              });
-                                                            },
-                                                            child: Tooltip(
-                                                              message: image,
-                                                              child: Container(
-                                                                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                                                height: 90,
-                                                                width: 160,
-                                                                decoration: BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(image),
-                                                                        fit: BoxFit.fill
-                                                                    )
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }).toList(),
-                                                      ),
-                                                    ),
-                                                  ),)),
-                                          ))
-                                        ],
-                                      );
-                                    });
+                                tooltip.show(context);
+
+                                // showDialog(context: context,
+                                //     barrierColor: Colors.transparent,
+                                //     builder: (context)
+                                //     {
+                                //       ScrollController controller = ScrollController();
+                                //       return Stack(
+                                //         children: [
+                                //           Positioned(top:licrossBtn_y, left: (licrossBtn_x+licrossBtnWidth),child: ConstrainedBox(
+                                //             constraints: BoxConstraints(maxWidth: 250, ),
+                                //             child: Dialog(elevation: 2,
+                                //                 child: Container(width: 160, height: licrossBtn_y-popupHeight,
+                                //                   child: RawScrollbar(
+                                //                     radius: Radius.circular(20),
+                                //                     isAlwaysShown: true,
+                                //                     thumbColor: red,
+                                //                     controller: controller,
+                                //                     child: SingleChildScrollView(
+                                //                       controller: controller,
+                                //                       child: Column(
+                                //                         children: licrossImages.map((image)
+                                //                         {
+                                //                           return InkWell(
+                                //                             onTap: ()
+                                //                             {
+                                //                               setState(() {
+                                //                                 selectedImage = image;
+                                //                               });
+                                //                             },
+                                //                             child: Tooltip(
+                                //                               message: image,
+                                //                               child: Container(
+                                //                                 margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                //                                 height: 90,
+                                //                                 width: 160,
+                                //                                 decoration: BoxDecoration(
+                                //                                     image: DecorationImage(
+                                //                                         image: AssetImage(image),
+                                //                                         fit: BoxFit.fill
+                                //                                     )
+                                //                                 ),
+                                //                               ),
+                                //                             ),
+                                //                           );
+                                //                         }).toList(),
+                                //                       ),
+                                //                     ),
+                                //                   ),)),
+                                //           ))
+                                //         ],
+                                //       );
+                                //     });
                               }, child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   //finds the name of the licross image
                                   Flexible(child: Text(selectedImage.split("/")[1].split(".")[0])),
-                                  Icon(Icons.arrow_drop_down, size: 28,)
+                                  Icon(Icons.arrow_drop_down, size: 28, color: red,)
                                 ],
-                              )),
+                              ))
+                              ,
                             ),
                             Container(
                               width: 180,
@@ -279,3 +312,5 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
     );
   }
 }
+
+
