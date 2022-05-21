@@ -59,7 +59,10 @@ class _HomeState extends State<Home> {
                       topRight: Radius.circular(0),
                       topLeft: Radius.circular(0),
                       bottomRight: Radius.circular(0),
-                    ))),onPressed: (){}, child: Text("Start Light configuration?", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),)),
+                    ))),onPressed: ()
+                    {
+                      Navigator.pushNamed(context, "/project_setup");
+                    }, child: Text("Start Light configuration?", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),)),
                   ),
                   SizedBox(width: 15,),
                 ],

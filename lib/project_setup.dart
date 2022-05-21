@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:siteco_external/colors/colors.dart';
 import 'package:siteco_external/frame1.dart';
 import 'package:siteco_external/frame2.dart';
+import 'package:siteco_external/frame3.dart';
 import 'package:siteco_external/widgets/small_screen_app_bar.dart';
 import 'package:siteco_external/widgets/stepper.dart';
 
 var frames = [
-  StepperFrame(title: "fghjk 0", frame: Container(child: Center(child: Frame1()))),
-  StepperFrame(title: "fghjk 1", frame: Container(child: Frame2())),
-  StepperFrame(title: "fghjk 2", frame: Container(child: Center(child: Text("3")))),
+  StepperFrame(title: "Project Details", frame: Container(child: Center(child: Frame1()))),
+  StepperFrame(title: "Module's configuration", frame: Container(child: Frame2())),
+  StepperFrame(title: "Summary", frame: Container(child: Frame3())),
 ];
 
 class ProjectSetup extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ProjectSetupState extends State<ProjectSetup> {
           children: [
             LargeScreenAppBar,
             SizedBox(height: 10,),
-            CustStepper(frames: frames,initStep: 1,),
+            CustStepper(frames: frames,initStep: 0,),
           ],
         ),
       ),

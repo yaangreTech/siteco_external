@@ -20,7 +20,7 @@ void main() {
             onBackground: Color(0xFF707070),
             surface: Color(0xFFFFFFFF),
             onSurface: Color(0xFF707070))),
-    initialRoute: '/project_setup',
+    initialRoute: '/',
     routes: {
       '/': (context) => const Home(),
       '/project_setup': (context)=>ProjectSetup(),

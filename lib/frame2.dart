@@ -90,7 +90,7 @@ class _Frame2State extends State<Frame2> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("Product name...", style: TextStyle(color: red, fontWeight: FontWeight.bold),),
-                                              IconButton(onPressed: (){}, icon: Icon(Icons.close, color: red,))
+                                              IconButton(onPressed: (){}, icon: Icon(Icons.delete, color: red,))
                                             ],
                                           ),
                                           Text("Quantity: 10", style: TextStyle(color: grey, fontWeight: FontWeight.bold),),
@@ -108,39 +108,80 @@ class _Frame2State extends State<Frame2> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                                        padding: const EdgeInsets.symmetric(horizontal: 8),
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Text('Product Name', style: TextStyle(color: red, fontWeight: FontWeight.bold),),
-                                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete, color: red))
+                                                            IconButton(onPressed: (){}, icon: Icon(Icons.close, color: red))
                                                           ],
                                                         ),
                                                       ),
-                                                      RawScrollbar(
-                                                        controller: controller,
-                                                        thumbColor: red,
-                                                        child: SingleChildScrollView(
+                                                      Container(
+                                                        height: 360,
+                                                        child: RawScrollbar(
                                                           controller: controller,
-                                                          child: Wrap(
-                                                            spacing: Width(context: context, breakpoints: {"lg": 0.1, "md": 0.1, "sm": 0}),
-                                                            children: [
-                                                              Stack(
-                                                                children: [
-                                                                  Container(
-                                                                    height: 400,
-                                                                    width: Width(context: context, breakpoints: {"lg": 3, "md": 3, "sm": 8}),
+                                                          thumbColor: red,
+                                                          child: SingleChildScrollView(
+                                                            controller: controller,
+                                                            child: Wrap(
+                                                              spacing: Width(context: context, breakpoints: {"lg": 0.1, "md": 0.1, "sm": 0}),
+                                                              children: [
+                                                                Container(
+                                                                  width: Width(context: context, breakpoints: {"lg": 3, "md": 3, "sm": 8}),
+                                                                  child: Column(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(flex: 1, child: Text("Quantity", style: TextStyle(fontWeight: FontWeight.bold, color: grey),)),
+                                                                          Expanded(flex: 2, child: Input(maxLines: 1, keyboardType: TextInputType.text, onChanged: (_)
+                                                                          {
+
+                                                                          }))
+
+                                                                        ],
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(flex: 1, child: Text("Length", style: TextStyle(fontWeight: FontWeight.bold, color: grey),)),
+                                                                          Expanded(flex: 2, child: Select(options: [1, 2],onChanged: (_){},))
+                                                                        ],
+                                                                      ),
+                                                                      Image(image: AssetImage("assets/images/siteco.jpg")),
+                                                                    ],
                                                                   ),
-                                                                  Container(
-                                                                    height: 400,
-                                                                    width: Width(context: context, breakpoints: {"lg": 3.9, "md": 3.9, "sm": 8}),
+                                                                ),
+                                                                Container(
+                                                                  height: 400,
+                                                                  width: Width(context: context, breakpoints: {"lg": 3.9, "md": 3.9, "sm": 8}),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(child: Text("Change product")),
+                                                                          Expanded(child: Select(options: [1, 2, 3], onChanged: (_){
+
+                                                                          },), )
+                                                                        ],
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          RedOutlinedButton(child: Text("OK"), onPressed: ()
+                                                          {
+
+                                                          })
+                                                        ],
+                                                      )
                                                     ],
                                                   ),
                                                 ));
