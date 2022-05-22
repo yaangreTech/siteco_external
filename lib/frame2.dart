@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
@@ -15,6 +16,7 @@ class Frame2 extends StatefulWidget {
 class _Frame2State extends State<Frame2> {
   @override
   Widget build(BuildContext context) {
+    print(GlobalData().formValues);
     var horizontalScrollController = ScrollController();
     return Stack(
       children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/advanced_config_popup.dart';
 import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
@@ -15,6 +16,8 @@ class Frame1 extends StatefulWidget {
 }
 
 class _Frame1State extends State<Frame1> {
+  //provides initial value to light_color
+  var globalData = GlobalData(entry: {"light_color": "830"});
   var group = "830";
   //default mounted image
   late String selectedMountingImage;
@@ -33,6 +36,7 @@ class _Frame1State extends State<Frame1> {
           {
             setState(() {
               group = _;
+              globalData.formValues = {"light_color": _};
             });
           },),
           Container(
@@ -64,6 +68,9 @@ class _Frame1State extends State<Frame1> {
     // TODO: implement initState
     super.initState();
     selectedMountingImage = mountingImages[0];
+    //initial image for mounting image
+    globalData.formValues = {"mounting": selectedMountingImage};
+
     var _controller = ScrollController();
     mountingImageAlertBoxContainer = Container(
         height: double.infinity,
@@ -86,6 +93,7 @@ class _Frame1State extends State<Frame1> {
                       setState(() {
                         selectedMountingImage = imagePath;
                       });
+                      globalData.formValues = {"mounting": imagePath};
                     },
                     child: Container(
                       height: 100,
@@ -103,6 +111,7 @@ class _Frame1State extends State<Frame1> {
           ),
         )
     );
+
   }
 
   @override
@@ -133,9 +142,9 @@ class _Frame1State extends State<Frame1> {
                               height: 400,
                               child: Column(
                                 children: [
-                                  InputLabel(context: context, label: "Project title", breakpoints: breakpoints, onChanged: (_){}),
-                                  InputLabel(context: context, label: "Location", breakpoints: breakpoints, onChanged: (_){}),
-                                  InputLabel(context: context, maxLines: 8, label: "Description", breakpoints: breakpoints, onChanged: (_){}),
+                                  InputLabel(context: context, label: "Project title", breakpoints: breakpoints, onChanged: (_){globalData.formValues = {"project_title": _};}),
+                                  InputLabel(context: context, label: "Location", breakpoints: breakpoints, onChanged: (_){globalData.formValues = {"Location": _};}),
+                                  InputLabel(context: context, maxLines: 8, label: "Description", breakpoints: breakpoints, onChanged: (_){globalData.formValues = {"description": _};}),
                                 ],
                               ),
                             ),
@@ -143,8 +152,8 @@ class _Frame1State extends State<Frame1> {
                               height: 400,
                               child: Column(
                                 children: [
-                                  SelectLabel(context: context, label: "Wiring", options: ["1", "2"], breakpoints: breakpoints, onChanged: (_){}),
-                                  SelectLabel(context: context, label: "Protection Class", options: ["1", "2"], breakpoints: breakpoints, onChanged: (_){}),
+                                  SelectLabel(context: context, label: "Wiring", options: ["1", "2"], breakpoints: breakpoints, onChanged: (_){globalData.formValues = {"wiring": _};}),
+                                  SelectLabel(context: context, label: "Protection Class", options: ["1", "2"], breakpoints: breakpoints, onChanged: (_){globalData.formValues = {"protection_class": _};}),
                                   Container(
                                     //height: 120,
                                     width: containerWidth,
@@ -180,7 +189,10 @@ class _Frame1State extends State<Frame1> {
                               width: containerWidth,
                               child: Column(
                                 children: [
-                                  InputLabel(context: context, label: "Color", breakpoints: breakpoints, onChanged: (_){}),
+                                  SelectLabel(options: [1, 2], context: context, label: "Color", breakpoints: breakpoints, onChanged: (_)
+                                  {
+                                    globalData.formValues = {"color": _};
+                                  }),
                                   SizedBox(height: 10,),
                                   //radio buttons for color
                                   Expanded(
@@ -188,7 +200,7 @@ class _Frame1State extends State<Frame1> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text("Light"),
+                                            Text("Light Color"),
                                           ],
                                         ),
                                         SizedBox(height: 10,),

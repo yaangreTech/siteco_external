@@ -1,6 +1,7 @@
 import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/functions/global_key_extension.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
@@ -16,17 +17,34 @@ class AdvancedConfigAlertBox extends StatefulWidget {
 }
 
 class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
+
   var alertRadioGroup_luminairs_length = "600";
   var alertRadioGroup_light_diffusion = "Diffuse";
-  List sliderValue = [500, 900];
+  List sliderValue = [];
   //list of mounting light_distribution
-  List licrossImages = ["assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg", "assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg"];
+  List licrossImages = [];
+  //selected image licross variant
   late String selectedImage;
+  //control
+  var control = [];
+  var globalData;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    licrossImages = ["assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg", "assets/images/csm_Siteco_Sirius_Stage.jpg", "assets/images/csm_Siteco_Sport.jpg", "assets/images/landing.jpg", "assets/images/siteco.jpg"];
     selectedImage = licrossImages[0];
+    sliderValue = [500, 900];
+    control = ["DALI", "___"];
+    //inits global data
+    globalData = GlobalData(entry: {"unsaved_config": {"control": control[0], "luminairs_length": 600, "light_diffusion": "Diffuse", "lumen": sliderValue, "licross_variant": selectedImage} });
+    // if(globalData.formValues["advanced_config"] != null)
+    // {
+    //   var data = globalData.formValues["advanced_config"];
+    //   selectedImage = data["licross_variant"];
+    //   sliderValue = data["lumen"];
+    //   control = {[data["control"], ...["DALI", "___"]]}.toList();
+    // }
   }
 
   //light distribution component
@@ -41,6 +59,7 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
             setState(() {
               alertRadioGroup_light_diffusion = _;
             });
+            globalData.formValue = {"unsaved_config": {"light_diffusion": _}};
           }),
           Center(
             child: Image(image: AssetImage(imagePath)),
@@ -48,6 +67,21 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
         ],
       ),
     );
+  }
+
+  void LumninairsLength({required var newValue})
+  {
+    setState(() {
+      alertRadioGroup_luminairs_length = newValue;
+    });
+    globalData.formValues = {"unsaved_config": {"luminairs_length": newValue}};
+  }
+
+  void SavedChanges()
+  {
+    globalData.formValues = {"advanced_config": globalData.formValues["unsaved_config"]};
+
+    Navigator.of(context).pop();
   }
 
   // We create the tooltip on the first use
@@ -127,15 +161,11 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                           children: [
                             Expanded(child: LabeledRadio(label: "600", group: alertRadioGroup_luminairs_length, onChanged: (_)
                             {
-                              setState(() {
-                                alertRadioGroup_luminairs_length = _;
-                              });
+                              LumninairsLength(newValue: _);
                             },)),
                             Expanded(child: LabeledRadio(label: "750", group: alertRadioGroup_luminairs_length, onChanged: (_)
                             {
-                              setState(() {
-                                alertRadioGroup_luminairs_length = _;
-                              });
+                              LumninairsLength(newValue: _);
                             },)),
                           ],
                         ),
@@ -143,15 +173,11 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                           children: [
                             Expanded(child: LabeledRadio(label: "1500", group: alertRadioGroup_luminairs_length, onChanged: (_)
                             {
-                              setState(() {
-                                alertRadioGroup_luminairs_length = _;
-                              });
+                              LumninairsLength(newValue: _);
                             },)),
                             Expanded(child: LabeledRadio(label: "2250", group: alertRadioGroup_luminairs_length, onChanged: (_)
                             {
-                              setState(() {
-                                alertRadioGroup_luminairs_length = _;
-                              });
+                              LumninairsLength(newValue: _);
                             },)),
                           ],
                         ),
@@ -173,12 +199,14 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                               setState(() {
                                 sliderValue[1] = _.round();
                               });
+                              globalData.formValues = {"unsaved_config": {"Lumen": sliderValue}};
                             },
                             onMinChanged: (_)
                             {
                               setState(() {
                                 sliderValue[0] = _.round();
                               });
+                              globalData.formValues = {"unsaved_config": {"Lumen": sliderValue}};
                             },
                             min: 500.0,
                             max: 900.0,
@@ -186,9 +214,9 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                           ),
                         //control
                         Text("Control", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        Select(options: ["Dali", "___"], onChanged: (_)
+                        Select(options: control, onChanged: (_)
                         {
-
+                          globalData.formValues = {"unsaved_config": {"control": sliderValue}};
                         }),
                         //licross variant
                         Text("Licross Variant", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -304,7 +332,11 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: GetWidth(context: context) >= smallScreenSize? RedOutlinedButton(child: Text("Save changes"), onPressed: (){}): FloatingActionButton(onPressed: (){}, backgroundColor: Colors.white, child: Icon(Icons.save, color: red, size: 28,),),
+              child: GetWidth(context: context) >= smallScreenSize? RedOutlinedButton(child: Text("Save changes"), onPressed: ()
+              {
+                SavedChanges();
+              }):
+              FloatingActionButton(onPressed: (){SavedChanges();}, backgroundColor: Colors.white, child: Icon(Icons.save, color: red, size: 28,),),
             )
           ],
         );
