@@ -19,6 +19,7 @@ class ProjectSetup extends StatefulWidget {
 }
 
 class _ProjectSetupState extends State<ProjectSetup> {
+  int currentStep = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,20 @@ class _ProjectSetupState extends State<ProjectSetup> {
           children: [
             LargeScreenAppBar,
             SizedBox(height: 10,),
-            CustStepper(frames: frames,initStep: 0,),
+            CustStepper(frames: frames,initStep: 0,
+              //   controller: (x, y)
+              // {
+              //     if(currentStep==2)
+              //     {
+              //       y();
+              //     }
+              // }, onFrameChanged: (_)
+              // {
+              //   setState(() {
+              //     currentStep = _;
+              //   });
+              // },
+              ),
           ],
         ),
       ),

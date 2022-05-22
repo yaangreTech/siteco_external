@@ -4,8 +4,9 @@ import 'package:siteco_external/colors/colors.dart';
 class CustStepper extends StatefulWidget {
   late List<StepperFrame> frames;
   late int initStep;
-
-  CustStepper({required this.frames, this.initStep = 0});
+  Function? onFrameChanged;
+  Function? controller;
+  CustStepper({required this.frames, this.initStep = 0, this.onFrameChanged, this.controller});
 
   @override
   State<CustStepper> createState() => _CustStepperState();
@@ -15,12 +16,14 @@ class _CustStepperState extends State<CustStepper> {
   int currentStep = 0;
   //pageview.builder's controller
   var controller;
+  var onFrameChanged;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     currentStep = widget.initStep;
+    onFrameChanged = widget.onFrameChanged;
     controller = PageController(initialPage: currentStep);
   }
 
@@ -58,6 +61,8 @@ class _CustStepperState extends State<CustStepper> {
   }
   @override
   Widget build(BuildContext context) {
+    //provides the controllers to the external scoope
+    widget.controller?.call(GoForward, GoBackward);
     var frames = widget.frames;
     List indexFrames = [];
     //list of index frames
@@ -99,6 +104,10 @@ class _CustStepperState extends State<CustStepper> {
                   controller: controller,
                   itemCount: frames.length,
                   physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (index)
+                  {
+                    onFrameChanged?.call(index);
+                  },
                   itemBuilder: (context, index)
                   {
                     return frames[index].frame;
