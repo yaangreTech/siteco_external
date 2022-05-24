@@ -1,6 +1,7 @@
 import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/functions/functions.dart';
 import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/functions/global_key_extension.dart';
 import 'package:siteco_external/widgets/buttons.dart';
@@ -37,14 +38,16 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
     sliderValue = [500, 900];
     control = ["DALI", "___"];
     //inits global data
-    globalData = GlobalData(entry: {"unsaved_config": {"control": control[0], "luminairs_length": 600, "light_diffusion": "Diffuse", "lumen": sliderValue, "licross_variant": selectedImage} });
-    // if(globalData.formValues["advanced_config"] != null)
-    // {
-    //   var data = globalData.formValues["advanced_config"];
-    //   selectedImage = data["licross_variant"];
-    //   sliderValue = data["lumen"];
-    //   control = {[data["control"], ...["DALI", "___"]]}.toList();
-    // }
+    globalData = GlobalData(entry: GlobalData().formValues["unsaved_config"]!=null?GlobalData().formValues["unsaved_config"]:Map.from({"unsaved_config": {"control": control[0], "luminairs_length": 600, "light_diffusion": "Diffuse", "lumen": sliderValue, "licross_variant": selectedImage} }));
+    if(globalData.formValues["advanced_config"] != null)
+    {
+      var data = globalData.formValues["advanced_config"];
+      selectedImage = data["licross_variant"];
+      sliderValue = data["lumen"];
+      control = {data["control"], ...control}.toList();
+      alertRadioGroup_light_diffusion = data["light_diffusion"];
+      alertRadioGroup_luminairs_length = data["luminairs_length"].toString();
+    }
   }
 
   //light distribution component
@@ -59,7 +62,7 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
             setState(() {
               alertRadioGroup_light_diffusion = _;
             });
-            globalData.formValue = {"unsaved_config": {"light_diffusion": _}};
+            globalData.formValues["unsaved_config"]["light_diffusion"] = _;
           }),
           Center(
             child: Image(image: AssetImage(imagePath)),
@@ -74,13 +77,13 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
     setState(() {
       alertRadioGroup_luminairs_length = newValue;
     });
-    globalData.formValues = {"unsaved_config": {"luminairs_length": newValue}};
+    globalData.formValues["unsaved_config"]["luminairs_length"] = newValue;
+    print(globalData.formValues["unsaved_config"]["lumen"]);
   }
 
   void SavedChanges()
   {
-    globalData.formValues = {"advanced_config": globalData.formValues["unsaved_config"]};
-
+    globalData.formValues["advanced_config"] = globalData.formValues["unsaved_config"];
     Navigator.of(context).pop();
   }
 
@@ -199,14 +202,15 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                               setState(() {
                                 sliderValue[1] = _.round();
                               });
-                              globalData.formValues = {"unsaved_config": {"Lumen": sliderValue}};
+                              globalData.formValues["unsaved_config"]["lumen"] = sliderValue;
+
                             },
                             onMinChanged: (_)
                             {
                               setState(() {
                                 sliderValue[0] = _.round();
                               });
-                              globalData.formValues = {"unsaved_config": {"Lumen": sliderValue}};
+                              globalData.formValues["unsaved_config"]["lumen"] = sliderValue;
                             },
                             min: 500.0,
                             max: 900.0,
@@ -214,9 +218,9 @@ class _AdvancedConfigAlertBoxState extends State<AdvancedConfigAlertBox> {
                           ),
                         //control
                         Text("Control", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        Select(options: control, onChanged: (_)
+                        Select(options: globalData.formValues["advanced_config"]?["control"]!=null?{globalData.formValues["advanced_config"]["control"], ...control}.toList(): control, onChanged: (_)
                         {
-                          globalData.formValues = {"unsaved_config": {"control": sliderValue}};
+                          globalData.formValues["unsaved_config"]["control"] = _;
                         }),
                         //licross variant
                         Text("Licross Variant", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

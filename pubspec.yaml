@@ -37,6 +37,7 @@ dependencies:
   flutter_svg: ^1.0.3
   cupertino_range_slider_improved: ^2.0.1
   super_tooltip: ^1.0.1
+  deep_collection: ^1.0.2
 
 dev_dependencies:
   flutter_test:

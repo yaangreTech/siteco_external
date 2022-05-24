@@ -22,3 +22,9 @@ class GlobalData
     return _instance;
   }
 }
+
+
+class XMap
+{
+
+}
