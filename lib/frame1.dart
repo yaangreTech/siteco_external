@@ -66,6 +66,7 @@ class _Frame1State extends State<Frame1> {
                       Text("Directly select components", style: TextStyle(fontSize: 22, color: grey))
                     ],
                   ),
+                  SizedBox(height: 30,),
                   Row(
                     children: [
                       Checkbox(
@@ -82,9 +83,9 @@ class _Frame1State extends State<Frame1> {
                       Text("Start configuration based on room size (auto-proposed configuration)", style: TextStyle(fontSize: 22, color: grey),)
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 50,),
                   Container(
-                    decoration: BoxDecoration(border: Border.all(color: grey, width: 1)),
+                    decoration: BoxDecoration(border: Border.all(color: grey, width: 1), color: Colors.white),
                     child: Column(
                       children: [
                         RoomConfigItem(label: "Length (m)", sliderValue: 30, max: 60, min: 1),

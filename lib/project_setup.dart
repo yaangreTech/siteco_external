@@ -27,7 +27,7 @@ class _ProjectSetupState extends State<ProjectSetup> {
           children: [
             LargeScreenAppBar,
             SizedBox(height: 10,),
-            CustStepper(frames: frames,initStep: 1,),
+            CustStepper(frames: frames,initStep: 2,),
           ],
         ),
       ),
