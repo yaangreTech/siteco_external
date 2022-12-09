@@ -16,7 +16,7 @@ class Frame1 extends StatefulWidget {
 
 class _Frame1State extends State<Frame1> {
   bool? chkBox1 = true;
-  bool? chkBox2 = true;
+  bool? chkBox2 = false;
   @override
   Widget build(BuildContext context) {
     return Padding(

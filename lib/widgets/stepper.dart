@@ -107,6 +107,7 @@ class _CustStepperState extends State<CustStepper> {
             ),
           ),
           Container(
+            decoration: BoxDecoration(color: white),
             margin: EdgeInsets.symmetric(horizontal: 10),
             height: 50,
             child: Row(

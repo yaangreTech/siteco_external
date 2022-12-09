@@ -13,7 +13,7 @@ import 'widgets/stepper.dart';
 
 var frames = [
   StepperFrame(title: "Configuration setup", frame: Container(child: Center(child: Frame1()))),
-  StepperFrame(title: "fghjk 1", frame: Container(child: Frame2())),
+  StepperFrame(title: "Luminare selection – basic logic", frame: Container(child: Frame2())),
   StepperFrame(title: "fghjk 2", frame: Container(child: Center(child: Text("3")))),
 ];
 
