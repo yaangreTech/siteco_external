@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/widgets/buttons.dart';
 
 class CustStepper extends StatefulWidget {
   late List<StepperFrame> frames;
@@ -54,7 +55,7 @@ class _CustStepperState extends State<CustStepper> {
   //underlined text widget
   Widget UnderlinedText({color: grey, required String text})
   {
-    return Container(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),child: Text(text, style: TextStyle(color: color, fontSize: 20, fontWeight: FontWeight.w600,),), decoration: BoxDecoration(border: Border(bottom: BorderSide(color: color, width: 2))),);
+    return Container(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),child: Text(text, style: TextStyle(color: color, fontSize: 25, fontWeight: FontWeight.w600,),), decoration: BoxDecoration(border: Border(bottom: BorderSide(color: color, width: 3))),);
   }
   @override
   Widget build(BuildContext context) {
@@ -105,14 +106,15 @@ class _CustStepperState extends State<CustStepper> {
                   }),
             ),
           ),
-          SizedBox(
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
             height: 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //hides the previous button when the current step is == 0
                 if(currentStep>0)
-                  TextButton(onPressed: ()
+                  GreyOutlinedButton(onPressed: ()
                   {
                     GoBackward();
                   }, child: Row(
@@ -123,7 +125,7 @@ class _CustStepperState extends State<CustStepper> {
                   ))
                 else
                   SizedBox(),
-                TextButton(onPressed: ()
+                RedOutlinedButton(onPressed: ()
                 {
                   GoForward();
                 }, child: Row(

@@ -27,3 +27,18 @@ Widget RedOutlinedButton({required Widget child, Function? onPressed})
     bottomRight: Radius.circular(0),
   )), side: BorderSide(width: 1.0, color: red)));
 }
+
+Widget GreyOutlinedButton({required Widget child, Function? onPressed})
+{
+  return OutlinedButton(
+      onPressed: ()
+      {
+        onPressed?.call();
+      },
+      child: child,
+      style: OutlinedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+        topRight: Radius.circular(0),
+        topLeft: Radius.circular(0),
+        bottomRight: Radius.circular(0),
+      )), side: BorderSide(width: 1.0, color: grey)));
+}

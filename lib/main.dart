@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:siteco_external/home.dart';
 import 'package:siteco_external/project_setup.dart';
 
+import 'new_project.dart';
+
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-        fontFamily: 'Medium Helvetica',
+        fontFamily: 'HelveticaNowText',
         scaffoldBackgroundColor: Colors.white,
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
@@ -20,10 +22,10 @@ void main() {
             onBackground: Color(0xFF707070),
             surface: Color(0xFFFFFFFF),
             onSurface: Color(0xFF707070))),
-    initialRoute: '/project_setup',
+    initialRoute: '/new_project',
     routes: {
       '/': (context) => const Home(),
-      '/project_setup': (context)=>ProjectSetup(),
+      '/new_project': (context)=>NewProject(),
     },
   ));
 }
