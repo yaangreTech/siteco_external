@@ -2,12 +2,13 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
-import 'package:siteco_external/colors/colors.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/new_project.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/small_screen_app_bar.dart';
-import 'package:page_animation_transition/page_animation_transition.dart';
+
+import 'functions/global_data.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -35,6 +36,7 @@ class _HomeState extends State<Home> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          //Siteco top attraction design
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 35),
             child: Align(
@@ -58,10 +60,12 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+
+          //What is siteco light trunking system
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
             child: Align(alignment: Alignment.centerRight, child: Container(
-              height: 450,
+              height: 330,
               width: 700,
               color: Colors.white.withOpacity(0.5),
               child: Padding(
@@ -70,6 +74,8 @@ class _HomeState extends State<Home> {
               ),
             ),),
           ),
+
+          //Bottom buttons
           Column(
             children: [
               Row(
@@ -84,12 +90,19 @@ class _HomeState extends State<Home> {
                       bottomRight: Radius.circular(0),
                     ))),onPressed: ()
                     {
+                      //creates the id of the project
+                      var id = "7142d53cd17c2ee0cf0ec390555195a7";
+                      //sets the id globaly
+                      GlobalData data = GlobalData(entry: {"id": id});
+                      //navigates towards the next page
                       Navigator.push(context,
-                          PageAnimationTransition(page: const NewProject(), pageAnimationType: BottomToTopTransition())
+                          PageTransition(duration: Duration(milliseconds: 1000), child: const NewProject(), type: PageTransitionType.bottomToTop)
                       );
                     }, child: Text("Start", style: TextStyle(color: Colors.white, fontSize: 18),)),
                   ),
                   SizedBox(width: 15,),
+
+                  //Continue project button
                   SizedBox(width: 320, height: 50, child: TextField(controller: projectID,
                     cursorColor: grey,
                     cursorHeight: 22,
@@ -125,6 +138,8 @@ class _HomeState extends State<Home> {
                       color: red,
                     )
                   ),),),
+
+                  //Language translation button
                   SizedBox(width: 195,),
                   SizedBox(
                     height: 50,
@@ -150,54 +165,10 @@ class _HomeState extends State<Home> {
           )
       ),
     );
-    //small screens home page
-    Widget SmallScreenPage = Container(
-      child: Column(
-        children: [
-          SmallScreenAppBar,
-          Image(image: AssetImage("assets/images/landing.jpg"), fit: BoxFit.contain,),
-          Expanded(
-            child: SingleChildScrollView(
-              controller: ScrollController(),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        child: Text("What is Light configuration?", style: TextStyle(color: red, fontSize: 22, fontWeight: FontWeight.bold),)),
-                    Text("""Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut ero labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco poriti laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in uienply voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat norin proident, sunt in culpa qui officia deserunt mollit anim id est laborum.""",
-                      style: TextStyle(fontSize: 16),),
-                    Align(
-                        alignment: Alignment.bottomRight,
-                        child: OutlinedButton(onPressed: (){}, style: OutlinedButton.styleFrom(side: BorderSide(color: red)), child: Text("More"))
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: SizedBox(
-                        height: 40,
-                        child: ElevatedButton(style: ElevatedButton.styleFrom( shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(0),
-                          topLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(0),
-                        ))),onPressed: ()
-                        {
-                        }, child: Text("Start Light configuration?", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),)),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
-        child: width > 768 ? LargeScreenPage: SmallScreenPage,
+        child: LargeScreenPage,
       ),
     );
   }

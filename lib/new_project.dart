@@ -1,15 +1,21 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
-import 'package:page_animation_transition/animations/top_to_bottom_faded.dart';
-import 'package:page_animation_transition/page_animation_transition.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:siteco_external/frame1.dart';
 import 'package:siteco_external/frame2.dart';
+import 'package:siteco_external/functions/functions.dart';
 import 'package:siteco_external/widgets/buttons.dart';
-import 'colors/colors.dart';
+import 'package:siteco_external/Consts/colors/colors.dart';
+import 'functions/global_data.dart';
 import 'home.dart';
 import 'widgets/stepper.dart';
+import 'package:share_plus/share_plus.dart';
 
+//creates a global data instance
+GlobalData data = GlobalData();
+//the id of the project
+var project_id;
 
 var frames = [
   StepperFrame(title: "Configuration setup", frame: Container(child: Center(child: Frame1()))),
@@ -27,12 +33,14 @@ class NewProject extends StatefulWidget {
 class _NewProjectState extends State<NewProject> {
   @override
   Widget build(BuildContext context) {
+    //sets the id of the project
+    project_id = data.formValues["id"];
     return Scaffold(
       body: Column(
         children: [
           Banner(context = context),
           SizedBox(height: 40,),
-          CustStepper(frames: frames,initStep: 0,),
+          CustStepper(frames: frames, initStep: 0,),
         ],
       ),
     );
@@ -64,7 +72,10 @@ Widget Banner (BuildContext context)
       ),
       Row(
         children: [
-          GreyOutlinedButton(onPressed: (){}, child: Row(
+          GreyOutlinedButton(onPressed: ()
+          {
+            FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
+          }, child: Row(
             children: [
               Text("Copy", style: TextStyle(fontSize: 22, color: grey),),
               SizedBox(width: 15,),
@@ -72,7 +83,10 @@ Widget Banner (BuildContext context)
             ],
           )),
           SizedBox(width: 20,),
-          GreyOutlinedButton(onPressed: (){}, child: Row(
+          GreyOutlinedButton(onPressed: ()
+          {
+            Share.share(project_id);
+          }, child: Row(
             children: [
               Text("Share via Email", style: TextStyle(fontSize: 22, color: grey),),
               SizedBox(width: 15,),
@@ -85,7 +99,7 @@ Widget Banner (BuildContext context)
         children: [
           IconButton(onPressed: ()
           {
-            Navigator.push(context, PageAnimationTransition(page: const Home(), pageAnimationType: TopToBottomFadedTransition()));
+            Navigator.push(context, PageTransition(duration: Duration(milliseconds: 1000), child: const Home(), type: PageTransitionType.topToBottom));
           }, icon: Icon(Icons.home_outlined, size: 32,)),
             SizedBox(width: 15,),
         ],

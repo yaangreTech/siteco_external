@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:siteco_external/colors/colors.dart';
 import 'package:siteco_external/frame1.dart';
 import 'package:siteco_external/frame2.dart';
 import 'package:siteco_external/widgets/small_screen_app_bar.dart';

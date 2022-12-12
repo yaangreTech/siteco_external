@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:siteco_external/Consts/pagenames.dart';
 import 'package:siteco_external/home.dart';
 import 'package:siteco_external/project_setup.dart';
 
@@ -22,10 +23,10 @@ void main() {
             onBackground: Color(0xFF707070),
             surface: Color(0xFFFFFFFF),
             onSurface: Color(0xFF707070))),
-    initialRoute: '/',
+    initialRoute: HOME,
     routes: {
-      '/': (context) => const Home(),
-      '/new_project': (context)=>NewProject(),
+      HOME: (context) => const Home(),
+      PROJECT_SETUP: (context)=>NewProject(),
     },
   ));
 }

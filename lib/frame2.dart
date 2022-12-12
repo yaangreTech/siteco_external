@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
@@ -534,7 +534,6 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
   @override
   Widget build(BuildContext context) {
     Color borderColor = enabled==false ? lightGrey : red;
-    print(enabled);
     return TextField(
       controller: controller,
       onChanged: (value)

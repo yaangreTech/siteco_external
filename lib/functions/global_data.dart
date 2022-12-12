@@ -22,3 +22,4 @@ class GlobalData
     return _instance;
   }
 }
+
