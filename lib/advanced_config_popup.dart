@@ -1,6 +1,6 @@
 import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/functions/global_key_extension.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:siteco_external/Consts/pagenames.dart';
 import 'package:siteco_external/advanced_config_popup.dart';
-import 'package:siteco_external/colors/colors.dart';
+import 'package:siteco_external/Consts/colors/colors.dart';
+import 'package:siteco_external/functions/functions.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/widgets/inputs.dart';
 import 'package:siteco_external/widgets/responsive.dart';
+import 'package:clipboard/clipboard.dart';
+import 'functions/global_data.dart';
+
+//creates a global data instance
+GlobalData data = GlobalData();
+//the id of the project
+var project_id;
 
 //frame 1
 class Frame1 extends StatefulWidget {
   const Frame1({Key? key}) : super(key: key);
-
   @override
   State<Frame1> createState() => _Frame1State();
 }
@@ -17,8 +25,27 @@ class Frame1 extends StatefulWidget {
 class _Frame1State extends State<Frame1> {
   bool? chkBox1 = true;
   bool? chkBox2 = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    //when the id is not set
+    if(!data.formValues.containsKey("id"))
+    {
+      Navigator.of(context).pushNamed(HOME);
+    }
+    else
+    {
+      project_id = data.formValues["id"];
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
       child: Column(
@@ -31,7 +58,7 @@ class _Frame1State extends State<Frame1> {
                 cursorHeight: 22,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
-                  hintText: "Config Id",
+                  hintText: "Add the title here",
                   contentPadding: EdgeInsets.symmetric(horizontal: 8),
                   filled: true,
                   fillColor: Colors.white,
@@ -40,6 +67,26 @@ class _Frame1State extends State<Frame1> {
                     borderRadius: BorderRadius.all(Radius.circular(0))
                   ),
                 ),
+              ))
+            ],
+          ),
+          SizedBox(height: 40,),
+          Row(
+            children: [
+              Expanded(flex: 2, child: Text("Project ID", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey),)),
+              Expanded(flex: 5, child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: Row(
+                    children: [
+                      Text(project_id, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey)),
+                      IconButton(onPressed: ()
+                      {
+                        FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
+                      }, icon: Icon(Icons.copy, size: 26, color: grey,))
+                    ],
+                  ))
+                ],
               ))
             ],
           ),
