@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
+import 'package:siteco_external/api/services.dart';
 import 'package:siteco_external/new_project.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/small_screen_app_bar.dart';
@@ -20,15 +23,25 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //customer's id
   TextEditingController? projectID;
-
+  var xdata = [];
   @override
   void initState() {
     projectID = TextEditingController();
     super.initState();
+
+    getData(callback: (_){setState(() {
+      xdata.add({"wiring": _});
+      data.formValues = {"wiring": _};
+    });}, url: "http://192.168.1.69:8000/api/getAll-wirings");
   }
 
   @override
   Widget build(BuildContext context) {
+    //Services.getData(apiURL: "getAll-wirings").then((value) => data.formValues = {"wiring": value});
+
+
+    print(data.formValues);
+    
     //large screens home page
     Widget LargeScreenPage = Container(
       width: double.infinity,
