@@ -1,6 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
+import 'package:siteco_external/functions/global_data.dart';
+
+GlobalData data = GlobalData();
 
 class Frame2 extends StatefulWidget {
   const Frame2({Key? key}) : super(key: key);
@@ -10,6 +13,25 @@ class Frame2 extends StatefulWidget {
 }
 
 class _Frame2State extends State<Frame2> {
+  late List wirings;
+  late List colors;
+  late List mountings;
+  late List protections;
+  late List feedIn;
+  late List feedOut;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+    wirings = data.formValues["wirings"];
+    colors = data.formValues["colors"];
+    mountings = data.formValues["mountings"];
+    protections = data.formValues["protections"];
+    feedOut = data.formValues["feedout"];
+    feedIn = data.formValues["feedin"];
+  }
   @override
   Widget build(BuildContext context)
   {
@@ -29,15 +51,15 @@ class _Frame2State extends State<Frame2> {
                       children: [
                         Expanded(flex: 1, child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: [5, 7, 9, 11, 14], defaultText: "Wiring", onChanged: (_){}),
+                          child: Select(options: wirings, defaultText: "Wiring", onChanged: (_){}),
                         )),
                         Expanded(flex: 1, child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: [5, 7, 9, 11, 14], defaultText: "Protection Class", onChanged: (_){}),
+                          child: Select(options: protections, defaultText: "Protection Class", onChanged: (_){}),
                         )),
                         Expanded(flex: 1, child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: [5, 7, 9, 11, 14], defaultText: "Color", onChanged: (_){}),
+                          child: Select(options: colors, defaultText: "Color", onChanged: (_){}),
                         )),
                       ],
                     )),

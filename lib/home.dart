@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,11 +6,14 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/api/services.dart';
+import 'package:siteco_external/functions/api_methods.dart';
 import 'package:siteco_external/new_project.dart';
 import 'package:siteco_external/widgets/alert.dart';
 import 'package:siteco_external/widgets/small_screen_app_bar.dart';
-
 import 'functions/global_data.dart';
+import 'models/wiring.dart';
+
+GlobalData data = GlobalData();
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,21 +25,69 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //customer's id
   TextEditingController? projectID;
-  var xdata = [];
+
   @override
   void initState() {
     projectID = TextEditingController();
     super.initState();
+    //wirings
+    fetchAllWirings(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"wirings":_};
+      });
+    });
 
-    getData(callback: (_){setState(() {
-      xdata.add({"wiring": _});
-      data.formValues = {"wiring": _};
-    });}, url: "http://192.168.1.69:8000/api/getAll-wirings");
+    //colors
+    fetchAllColors(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"colors":_};
+      });
+    });
+
+    //mountings
+    fetchAllMountings(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"mountings":_};
+      });
+    });
+
+    //protections
+    fetchAllProtections(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"protections":_};
+      });
+    });
+
+    //feedout
+    fetchAllFeedOut(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"feedout":_};
+      });
+    });
+
+    //feedin
+    fetchAllFeedIn(callback: (_)
+    {
+      setState(() {
+        data.formValues = {"feedin":_};
+      });
+    });
+
+    // fetchAllLuminairs(callback: (_)
+    // {
+    //   setState(() {
+    //     data.formValues = {"wiring":_};
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    //Services.getData(apiURL: "getAll-wirings").then((value) => data.formValues = {"wiring": value});
 
 
     print(data.formValues);
