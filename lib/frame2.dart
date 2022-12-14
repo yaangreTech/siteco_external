@@ -198,7 +198,7 @@ class _Frame2State extends State<Frame2> {
                         ),
                         Row(
                           children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: [],)),
+                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: mountings,)),
                             Expanded(flex: 4, child: Row(
                               children: [
                                 Expanded(child: Container(),),
@@ -230,7 +230,7 @@ class _Frame2State extends State<Frame2> {
                         SizedBox(height: 10,),
                         Row(
                           children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: [],)),
+                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: mountings,)),
                             Expanded(flex: 4, child: Row(
                               children: [
                                 Expanded(child: Container(),),
