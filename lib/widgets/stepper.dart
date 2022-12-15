@@ -60,7 +60,7 @@ class _CustStepperState extends State<CustStepper> {
   //underlined text widget
   Widget UnderlinedText({color: grey, required String text})
   {
-    return Container(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),child: Text(text, style: TextStyle(color: color, fontSize: 25, fontWeight: FontWeight.w600,),), decoration: BoxDecoration(border: Border(bottom: BorderSide(color: color, width: 3))),);
+    return Container(padding: EdgeInsets.fromLTRB(0, 0, 0, 5),child: Text(text, style: TextStyle(color: color, fontSize: 22, fontWeight: FontWeight.w600,),), decoration: BoxDecoration(border: Border(bottom: BorderSide(color: color, width: 3))),);
   }
 
   @override

@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/api/services.dart';
 import 'package:siteco_external/functions/global_data.dart';
+import 'package:siteco_external/widgets/alert.dart';
 
 GlobalData data = GlobalData();
 
-void fetchAllWirings({required Function callback})
+void fetchAllWirings({required BuildContext context, required Function callback})
 {
   Services.getData(apiURL: "getAll-wirings").then((value)
   {
     if(value["status"]=="200")
     {
       var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
+      //callback(x);
+      data.formValues = {"wirings":x};
     }
-  });
+    else
+    {
+      AlertBox(context: context, child: Text("Error"));
+    }
+  }).catchError((data){});
 }
 
 void fetchAllColors({required Function callback})

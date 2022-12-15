@@ -8,10 +8,10 @@ Map<String, String> _headers = {
 };
 
 
-const String root = "http://ytech-bf.com/siteco/public/api/";
+const String root = "https://ytech-bf.com/siteco/public/api/";
 
 class Services {
-  static const root = "http://ytech-bf.com/siteco/public/api/";
+  static const root = "https://ytech-bf.com/siteco/public/api/";
 
   static Future getData({Map<String, dynamic> data = const {}, required String apiURL, bool isGet = true}) async
   {
@@ -38,6 +38,7 @@ class Services {
     {
       Map data = {'status': '500', 'data': json.decode('')};
       return data;
+      //return e;
     }
   }
 }

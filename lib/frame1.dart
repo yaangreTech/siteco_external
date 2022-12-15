@@ -60,7 +60,7 @@ class _Frame1State extends State<Frame1> {
         children: [
           Row(
             children: [
-              Expanded(flex: 2, child: Text("Project Title", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey),)),
+              Expanded(flex: 2, child: Text("Project Title", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
               Expanded(flex: 5, child: TextField(
                 cursorColor: grey,
                 cursorHeight: 22,
@@ -81,13 +81,13 @@ class _Frame1State extends State<Frame1> {
           SizedBox(height: 40,),
           Row(
             children: [
-              Expanded(flex: 2, child: Text("Project ID", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey),)),
+              Expanded(flex: 2, child: Text("Project ID", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
               Expanded(flex: 5, child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: Row(
                     children: [
-                      Text(project_id, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey)),
+                      Text(project_id, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey)),
                       IconButton(onPressed: ()
                       {
                         FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
@@ -102,7 +102,7 @@ class _Frame1State extends State<Frame1> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 2, child: Text("Configuration Mode", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: grey),)),
+              Expanded(flex: 2, child: Text("Configuration Mode", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
               Expanded(flex: 5, child: Column(
                 children: [
                   Row(
@@ -124,7 +124,7 @@ class _Frame1State extends State<Frame1> {
                       //     }
                       // ),
                       SizedBox(width: 20,),
-                      Text("Directly select components", style: TextStyle(fontSize: 22, color: grey))
+                      Text("Directly select components", style: TextStyle(fontSize: 18, color: grey))
                     ],
                   ),
                   SizedBox(height: 30,),
@@ -147,7 +147,7 @@ class _Frame1State extends State<Frame1> {
                       //     }
                       // ),
                       SizedBox(width: 20,),
-                      Text("Start configuration based on room size (auto-proposed configuration)", style: TextStyle(fontSize: 22, color: grey),)
+                      Text("Start configuration based on room size (auto-proposed configuration)", style: TextStyle(fontSize: 18, color: grey),)
                     ],
                   ),
                   SizedBox(height: 50,),
@@ -216,7 +216,7 @@ class _RoomConfigItemState extends State<RoomConfigItem> {
     return Container(margin: EdgeInsets.symmetric(vertical: 10),padding: EdgeInsets.symmetric(horizontal: 20),height: 50, child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(flex: 2, child: Text(label, style: TextStyle(fontSize: 22, color: grey),)),
+        Expanded(flex: 2, child: Text(label, style: TextStyle(fontSize: 18, color: grey),)),
         Expanded(flex: 6, child: Slider(min: min, max: max, activeColor: red, thumbColor: red, value: sliderValue, onChanged: (newValue)
         {
           setState(() {

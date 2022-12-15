@@ -30,53 +30,64 @@ class _HomeState extends State<Home> {
   void initState() {
     projectID = TextEditingController();
     super.initState();
+
     //wirings
-    fetchAllWirings(callback: (_)
+    fetchAllWirings(context: context, callback: (_)
     {
-      setState(() {
-        data.formValues = {"wirings":_};
-      });
+      data.formValues = {"wirings":_};
+      // setState(() {
+      //   data.formValues = {"wirings":_};
+      // });
     });
 
     //colors
     fetchAllColors(callback: (_)
     {
-      setState(() {
-        data.formValues = {"colors":_};
-      });
+      data.formValues = {"colors":_};
+      // setState(() {
+      //   data.formValues = {"colors":_};
+      // });
     });
 
     //mountings
     fetchAllMountings(callback: (_)
     {
-      setState(() {
-        data.formValues = {"mountings":_};
-      });
+      data.formValues = {"mountings":_};
+      // setState(() {
+      //   data.formValues = {"mountings":_};
+      // });
     });
 
     //protections
     fetchAllProtections(callback: (_)
     {
-      setState(() {
-        data.formValues = {"protections":_};
-      });
+      data.formValues = {"protections":_};
+      // setState(() {
+      //   data.formValues = {"protections":_};
+      // });
     });
 
     //feedout
     fetchAllFeedOut(callback: (_)
     {
-      setState(() {
-        data.formValues = {"feedout":_};
-      });
+      data.formValues = {"feedout":_};
+      // setState(() {
+      //   data.formValues = {"feedout":_};
+      // });
     });
 
     //feedin
     fetchAllFeedIn(callback: (_)
     {
-      setState(() {
-        data.formValues = {"feedin":_};
-      });
+      data.formValues = {"feedin":_};
+      // setState(() {
+      //   data.formValues = {"feedin":_};
+      // });
     });
+
+    // setState(() {
+    //
+    // });
 
     // fetchAllLuminairs(callback: (_)
     // {
@@ -157,16 +168,19 @@ class _HomeState extends State<Home> {
                       var id = "7142d53cd17c2ee0cf0ec390555195a7";
                       //sets the id globaly
                       GlobalData data = GlobalData(entry: {"id": id});
+
                       //navigates towards the next page
                       Navigator.push(context,
                           PageTransition(duration: Duration(milliseconds: 1000), child: const NewProject(), type: PageTransitionType.bottomToTop)
                       );
-                    }, child: Text("Start", style: TextStyle(color: Colors.white, fontSize: 18),)),
+
+                       //print(data.formValues);
+                    }, child: Text("Start a new project", style: TextStyle(color: Colors.white, fontSize: 18),)),
                   ),
                   SizedBox(width: 15,),
 
                   //Continue project button
-                  SizedBox(width: 320, height: 50, child: TextField(controller: projectID,
+                  SizedBox(width: 390, height: 50, child: TextField(controller: projectID,
                     cursorColor: grey,
                     cursorHeight: 22,
                     decoration: InputDecoration(

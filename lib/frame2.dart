@@ -362,7 +362,7 @@ class _Frame2DottedTxtState extends State<Frame2DottedTxt> {
         dashPattern: [6, 6, 6, 6],
         color: grey,
         strokeWidth: 1,
-        child: Container(margin:  EdgeInsets.fromLTRB(4, 8, 4, 8),child: Text(widget.label, style: TextStyle(fontSize: 22, fontWeight: widget.bold ? FontWeight.bold : FontWeight.normal ),)),
+        child: Container(margin:  EdgeInsets.fromLTRB(4, 8, 4, 8),child: Text(widget.label, style: TextStyle(fontSize: 18, fontWeight: widget.bold ? FontWeight.bold : FontWeight.normal ),)),
       ),
     );
   }
