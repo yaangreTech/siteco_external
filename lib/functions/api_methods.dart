@@ -2,24 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:siteco_external/api/services.dart';
 import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/widgets/alert.dart';
+import 'package:siteco_external/widgets/buttons.dart';
+import 'package:siteco_external/widgets/restart_app.dart';
 
 GlobalData data = GlobalData();
 
 void fetchAllWirings({required BuildContext context, required Function callback})
 {
-  Services.getData(apiURL: "getAll-wirings").then((value)
+  Services.getData(apiURL: "getAll-wiring").then((value)
   {
-    if(value["status"]=="200")
-    {
+
       var x = value["data"].map((item)=>item["name"]).toList();
       //callback(x);
       data.formValues = {"wirings":x};
-    }
-    else
-    {
-      AlertBox(context: context, child: Text("Error"));
-    }
-  }).catchError((data){});
+  }).catchError((serverError, stack)
+  {
+    //print(serverError);
+    AlertBox(context: context, child: SizedBox(
+      height: 120,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(serverError["status"].toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+            Text(serverError["message"], style: TextStyle(fontSize: 20),),
+            RedOutlinedButton(child: Text("Retry"), onPressed: ()
+            {
+              RestartWidget.restartApp(context);
+            })
+          ],
+        ),
+      ),
+    ));
+  });
 }
 
 void fetchAllColors({required Function callback})
