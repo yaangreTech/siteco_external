@@ -9,7 +9,7 @@ GlobalData data = GlobalData();
 
 void fetchAllWirings({required BuildContext context, required Function callback})
 {
-  Services.getData(apiURL: "getAll-wiring").then((value)
+  Services.getData(apiURL: "getAll-wirings").then((value)
   {
 
       var x = value["data"].map((item)=>item["name"]).toList();
