@@ -25,84 +25,25 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //customer's id
   TextEditingController? projectID;
+  bool showLoader = true;
 
   @override
   void initState() {
     projectID = TextEditingController();
     super.initState();
-
-    //wirings
-    fetchAllWirings(context: context, callback: (_)
+    //fetches all data from the database
+    GetAllData().then((value)
     {
-      data.formValues = {"wirings":_};
-      // setState(() {
-      //   data.formValues = {"wirings":_};
-      // });
+      setState(() {
+        showLoader = false;
+        data.formValues==value;
+      });
     });
-
-    //colors
-    fetchAllColors(callback: (_)
-    {
-      data.formValues = {"colors":_};
-      // setState(() {
-      //   data.formValues = {"colors":_};
-      // });
-    });
-
-    //mountings
-    fetchAllMountings(callback: (_)
-    {
-      data.formValues = {"mountings":_};
-      // setState(() {
-      //   data.formValues = {"mountings":_};
-      // });
-    });
-
-    //protections
-    fetchAllProtections(callback: (_)
-    {
-      data.formValues = {"protections":_};
-      // setState(() {
-      //   data.formValues = {"protections":_};
-      // });
-    });
-
-    //feedout
-    fetchAllFeedOut(callback: (_)
-    {
-      data.formValues = {"feedout":_};
-      // setState(() {
-      //   data.formValues = {"feedout":_};
-      // });
-    });
-
-    //feedin
-    fetchAllFeedIn(callback: (_)
-    {
-      data.formValues = {"feedin":_};
-      // setState(() {
-      //   data.formValues = {"feedin":_};
-      // });
-    });
-
-    // setState(() {
-    //
-    // });
-
-    // fetchAllLuminairs(callback: (_)
-    // {
-    //   setState(() {
-    //     data.formValues = {"wiring":_};
-    //   });
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     print(data.formValues);
-    
     //large screens home page
     Widget LargeScreenPage = Container(
       width: double.infinity,
@@ -242,11 +183,32 @@ class _HomeState extends State<Home> {
           )
       ),
     );
+    Widget Loader = Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Getting data", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+            ],
+          )
+        ],
+      ),
+    );
 
     return Scaffold(
       body: SafeArea(
-        child: LargeScreenPage,
+        child: showLoader ? Loader : LargeScreenPage,
       ),
     );
   }
+
+  //fetch all db
+  // void GetAllData() async
+  // {
+  //   Map _data = {};
+  //   _data = {"feedout": await fetchComponent(apiURL: "getAll-feedout")};
+  //   data.formValues == _data;
+  // }
 }

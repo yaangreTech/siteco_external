@@ -1,125 +1,162 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+
 import 'package:siteco_external/api/services.dart';
 import 'package:siteco_external/functions/global_data.dart';
-import 'package:siteco_external/widgets/alert.dart';
-import 'package:siteco_external/widgets/buttons.dart';
-import 'package:siteco_external/widgets/restart_app.dart';
 
 GlobalData data = GlobalData();
+//fetch all db
+Future GetAllData() async
+{
+  Map _data = {};
+  _data = {"feedout": await fetchComponent(apiURL: "getAll-feedout")};
+  // data.formValues = {"key": 123456789};
+  //print(_data);
+  // data.formValues = _data;
+  data.formValues = {"data": _data};
+  return {"data": _data};
+}
 
-void fetchAllWirings({required BuildContext context, required Function callback})
+//list of occurred errors while fetching data
+List errors = [];
+
+void HandleErrors(serverError, stack)
+{
+  //adds errors to the list
+  errors.add(serverError);
+}
+
+//wirings
+void fetchAllWirings()
 {
   Services.getData(apiURL: "getAll-wirings").then((value)
   {
-
-      var x = value["data"].map((item)=>item["name"]).toList();
-      //callback(x);
-      data.formValues = {"wirings":x};
-  }).catchError((serverError, stack)
-  {
-    //print(serverError);
-    AlertBox(context: context, child: SizedBox(
-      height: 120,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(serverError["status"].toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
-            Text(serverError["message"], style: TextStyle(fontSize: 20),),
-            RedOutlinedButton(child: Text("Retry"), onPressed: ()
-            {
-              RestartWidget.restartApp(context);
-            })
-          ],
-        ),
-      ),
-    ));
-  });
+    var x  = value["data"];
+    x = x.map((item)
+    {
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    data.formValues = {"wirings":x};
+  }).catchError(HandleErrors);
 }
-
-void fetchAllColors({required Function callback})
+/*
+//colors
+void fetchAllColors()
 {
   Services.getData(apiURL: "getAll-colors").then((value)
   {
-    if(value["status"]=="200")
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    data.formValues = {"colors":x};
+  }).catchError(HandleErrors);
 }
-
-void fetchAllMountings({required Function callback})
+//mountings
+void fetchAllMountings()
 {
   Services.getData(apiURL: "getAll-mountings").then((value)
   {
-    if(value["status"]=="200")
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    data.formValues = {"mountings":x};
+  }).catchError(HandleErrors);
 }
-
-
-void fetchAllProtections({required Function callback})
+//protections
+void fetchAllProtections()
 {
-  Services.getData(apiURL: "getAll-protections").then((value)
-  {
-    if(value["status"]=="200")
+  Services.getData(apiURL: "getAll-protections").then((value) {
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    data.formValues = {"protections": x};
+  }).catchError(HandleErrors);
 }
-
-void fetchAllFeedIn({required Function callback})
+//feed-in
+void fetchAllFeedIn()
 {
   Services.getData(apiURL: "getAll-feedin").then((value)
   {
-    if(value["status"]=="200")
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    print(x);
+    data.formValues = {"feedin":x};
+  }).catchError(HandleErrors);
 }
-
-void fetchAllFeedOut({required Function callback})
+//feed-out
+void fetchAllFeedOut()
 {
   Services.getData(apiURL: "getAll-feedout").then((value)
   {
-    if(value["status"]=="200")
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    //print(x);
+    data.formValues = {"feedout":x};
+  }).catchError(HandleErrors);
 }
-
-void fetchAllLuminairs({required Function callback})
+//luminairs
+void fetchAllLuminairs()
 {
   Services.getData(apiURL: "getAll-luminairs").then((value)
   {
-    if(value["status"]=="200")
+    var x  = value["data"];
+    x = x.map((item)
     {
-      var x = value["data"].map((item)=>item["name"]).toList();
-      callback(x);
-    }
-  });
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    print(x);
+    data.formValues = {"luminairs":x};
+  }).catchError(HandleErrors);
+}
+
+ */
+Future fetchComponent({required String apiURL})async
+{
+  return await Services.getData(apiURL: apiURL).then((value)
+  {
+    var data  = value["data"];
+    data = data.map((item)
+    {
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    return data;
+  }).catchError(HandleErrors);
 }
 
 // void fetchAllProtections({required Function callback})
 // {
 //   Services.getData(apiURL: "getAll-Protections").then((value)
 //   {
-//     if(value["status"]=="200")
-//     {
-//       callback(value["data"]);
-//     }
-//   });
+//     var x = value["data"].map((item)=>item["name"]).toList();
+//     data.formValues = {"protections":x};
+//   }).catchError(HandleErrors);
 // }
 //
 // void fetchAllProtections({required Function callback})
@@ -132,3 +169,4 @@ void fetchAllLuminairs({required Function callback})
 //     }
 //   });
 // }
+

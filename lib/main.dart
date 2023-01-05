@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:siteco_external/Consts/pagenames.dart';
+import 'package:siteco_external/error_page.dart';
+import 'package:siteco_external/functions/api_methods.dart';
+import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/home.dart';
-import 'package:siteco_external/project_setup.dart';
 import 'package:siteco_external/widgets/restart_app.dart';
 import 'new_project.dart';
 
@@ -27,6 +29,7 @@ void main() {
       initialRoute: HOME,
       routes: {
         HOME: (context) => const Home(),
+        ERROR_PAGE: (context) => ErrorPage(),
         PROJECT_SETUP: (context)=>NewProject(),
       },
     ),
