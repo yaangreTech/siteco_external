@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
+import 'package:siteco_external/Consts/pagenames.dart';
 import 'package:siteco_external/api/services.dart';
 import 'package:siteco_external/functions/api_methods.dart';
 import 'package:siteco_external/new_project.dart';
@@ -32,13 +33,49 @@ class _HomeState extends State<Home> {
     projectID = TextEditingController();
     super.initState();
     //fetches all data from the database
-    GetAllData().then((value)
+    if(data.formValues["data"]==null)
+    {
+      // GetAllData().then((value)
+      // {
+      //   data.formValues==value;
+      //   if(this.mounted)
+      //   {
+      //     setState(() {
+      //       showLoader = false;
+      //     });
+      //   }
+      // }).onError((error, stackTrace)
+      // {
+      //     print(error);
+      //     data.formValues== {"data":null};
+      //     Navigator.pushNamed(context, ERROR_PAGE);
+      // });
+        ()async
+        {
+          try
+          {
+            data.formValues=await GetAllData();
+            if(this.mounted)
+            {
+              setState(() {
+                showLoader = false;
+              });
+            }
+          }
+          catch(error, stackTrace)
+          {
+              print(error);
+              data.formValues== {"data":null};
+              Navigator.pushNamed(context, ERROR_PAGE);
+          }
+        }();
+    }
+    else
     {
       setState(() {
         showLoader = false;
-        data.formValues==value;
       });
-    });
+    }
   }
 
   @override
@@ -108,7 +145,7 @@ class _HomeState extends State<Home> {
                       //creates the id of the project
                       var id = "7142d53cd17c2ee0cf0ec390555195a7";
                       //sets the id globaly
-                      GlobalData data = GlobalData(entry: {"id": id});
+                      data.formValues = {"id": id};
 
                       //navigates towards the next page
                       Navigator.push(context,
@@ -183,6 +220,8 @@ class _HomeState extends State<Home> {
           )
       ),
     );
+
+    // animated loader
     Widget Loader = Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +229,13 @@ class _HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Getting data", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+              Column(
+                children: [
+                  Text("Please Wait", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  SizedBox(height: 26,),
+                  LoadingAnimationWidget.beat(color: red, size: 40)
+                ],
+              ),
             ],
           )
         ],

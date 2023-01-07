@@ -14,9 +14,9 @@ class ErrorPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Cannot connect the client to the server", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+              Text("Cannot connect the client to the server.\nAn error occured while fetching data", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
               SizedBox(width: 20,),
-              Icon(Icons.error, size: 26,)
+              Icon(Icons.error, size: 42,)
             ],
           ),
           SizedBox(height: 25,),

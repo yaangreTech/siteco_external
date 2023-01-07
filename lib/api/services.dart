@@ -10,7 +10,7 @@ Map<String, String> _headers = {
 //base name of the API link
 //const String root = "https://ytech-bf.com/siteco/public/api/";
 
-class CustomException implements Exception {
+class ApiException implements Exception {
   static const SERVER_STATUS_CODE = [
     {
       "status": "100",
@@ -289,9 +289,11 @@ class CustomException implements Exception {
     }
   ];
   String message="";
+  String url="";
   int status=200;
-  CustomException({required int status})
+  ApiException({required int status, required String url})
   {
+    this.url = url;
     this.status = status;
     //index of the status
     int index = SERVER_STATUS_CODE.indexWhere((item) => item["status"]==status.toString());
@@ -304,6 +306,9 @@ class CustomException implements Exception {
 
   //getter of the message
   String get Message => message;
+
+  //getter of the message
+  String get Url => url;
 
   @override
   String toString()
@@ -333,12 +338,12 @@ class Services {
       }
       else
       {
-        throw CustomException(status: response.statusCode);
+        throw ApiException(status: response.statusCode, url: finalURL);
       }
     }
-    on CustomException catch (e)
+    on ApiException catch (e)
     {
-      data = {'status': e.Status, 'message': e.Message, 'data': ""};
+      data = {'status': e.Status, 'message': e.Message, 'data': "", 'url': e.Url};
       return Future.error(data);
     }
     catch (e)
@@ -347,11 +352,4 @@ class Services {
     }
   }
 }
-
-
-// void getData({required Function callback, required String url}) async
-// {
-//   Response response = await get(Uri.parse(url));
-//   callback(jsonDecode(response.body));
-// }
 

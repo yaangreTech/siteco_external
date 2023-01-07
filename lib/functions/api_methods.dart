@@ -7,24 +7,97 @@ GlobalData data = GlobalData();
 //fetch all db
 Future GetAllData() async
 {
+  // contains data that will be retrieved
   Map _data = {};
-  _data = {"feedout": await fetchComponent(apiURL: "getAll-feedout")};
-  // data.formValues = {"key": 123456789};
-  //print(_data);
-  // data.formValues = _data;
-  data.formValues = {"data": _data};
-  return {"data": _data};
+  try
+  {
+    //wirings
+    _data.addAll({"wirings": await fetchComponent(apiURL: "getAll-wirings")});
+    //feedin
+    _data.addAll({"feedin": await fetchComponent(apiURL: "getAll-feedin")});
+    //feedout
+    _data.addAll({"feedout": await fetchComponent(apiURL: "getAll-feedout")});
+    //mountings
+    _data.addAll({"mountings": await fetchComponent(apiURL: "getAll-mountings")});
+    //central_feel_in
+    _data.addAll({"central_feel_in": await fetchComponent(apiURL: "getAll-CentralFeelIn")});
+    //luminairs
+    _data.addAll({"luminairs": await fetchComponent(apiURL: "getAll-luminairs")});
+    //colors
+    _data.addAll({"colors": await fetchComponent(apiURL: "getAll-colors")});
+
+    if(errorsStack.isEmpty)
+    {
+      return {"data": _data};
+    }
+    else
+    {
+      throw Exception("An error occured while fetching data");
+    }
+  }
+  catch (e)
+  {
+    print(e);
+    return Future.error(errorsStack);
+  }
+
+  // if(errors.isEmpty)
+  // {
+  //   return {"data": _data};
+  // }
+  // else
+  // {
+  //   return errors;
+  // }
+  // print(errors);
+  // return errors.isEmpty ? {"data": _data}: errors;
 }
 
 //list of occurred errors while fetching data
-List errors = [];
+List errorsStack = [];
 
 void HandleErrors(serverError, stack)
 {
   //adds errors to the list
-  errors.add(serverError);
+  errorsStack.add(serverError);
 }
 
+Future fetchComponent({required String apiURL})async
+{
+  return await Services.getData(apiURL: apiURL).then((value)
+  {
+    var data  = value["data"];
+    data = data.map((item)
+    {
+      item.remove("created_at");
+      item.remove("updated_at");
+      return item;
+    }).toList();
+    return data;
+  }).catchError(HandleErrors);
+}
+
+// void fetchAllProtections({required Function callback})
+// {
+//   Services.getData(apiURL: "getAll-Protections").then((value)
+//   {
+//     var x = value["data"].map((item)=>item["name"]).toList();
+//     data.formValues = {"protections":x};
+//   }).catchError(HandleErrors);
+// }
+//
+// void fetchAllProtections({required Function callback})
+// {
+//   Services.getData(apiURL: "getAll-Protections").then((value)
+//   {
+//     if(value["status"]=="200")
+//     {
+//       callback(value["data"]);
+//     }
+//   });
+// }
+
+/*
 //wirings
 void fetchAllWirings()
 {
@@ -40,7 +113,6 @@ void fetchAllWirings()
     data.formValues = {"wirings":x};
   }).catchError(HandleErrors);
 }
-/*
 //colors
 void fetchAllColors()
 {
@@ -135,38 +207,3 @@ void fetchAllLuminairs()
 }
 
  */
-Future fetchComponent({required String apiURL})async
-{
-  return await Services.getData(apiURL: apiURL).then((value)
-  {
-    var data  = value["data"];
-    data = data.map((item)
-    {
-      item.remove("created_at");
-      item.remove("updated_at");
-      return item;
-    }).toList();
-    return data;
-  }).catchError(HandleErrors);
-}
-
-// void fetchAllProtections({required Function callback})
-// {
-//   Services.getData(apiURL: "getAll-Protections").then((value)
-//   {
-//     var x = value["data"].map((item)=>item["name"]).toList();
-//     data.formValues = {"protections":x};
-//   }).catchError(HandleErrors);
-// }
-//
-// void fetchAllProtections({required Function callback})
-// {
-//   Services.getData(apiURL: "getAll-Protections").then((value)
-//   {
-//     if(value["status"]=="200")
-//     {
-//       callback(value["data"]);
-//     }
-//   });
-// }
-
