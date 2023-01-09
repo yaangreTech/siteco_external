@@ -40,7 +40,7 @@ class _NewProjectState extends State<NewProject> {
         children: [
           Banner(context = context),
           SizedBox(height: 40,),
-          CustStepper(frames: frames, initStep: 0,),
+          CustStepper(frames: frames, initStep: 1,),
         ],
       ),
     );

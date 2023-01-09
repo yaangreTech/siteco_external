@@ -32,31 +32,18 @@ class _HomeState extends State<Home> {
   void initState() {
     projectID = TextEditingController();
     super.initState();
-    //fetches all data from the database
+    //fetches all data from the database when they are not yet fetched
     if(data.formValues["data"]==null)
     {
-      // GetAllData().then((value)
-      // {
-      //   data.formValues==value;
-      //   if(this.mounted)
-      //   {
-      //     setState(() {
-      //       showLoader = false;
-      //     });
-      //   }
-      // }).onError((error, stackTrace)
-      // {
-      //     print(error);
-      //     data.formValues== {"data":null};
-      //     Navigator.pushNamed(context, ERROR_PAGE);
-      // });
         ()async
         {
           try
           {
-            data.formValues=await GetAllData();
+            data.formValues = await GetAllData();
+            //if the current widget is mounted
             if(this.mounted)
             {
+              //hides the loader
               setState(() {
                 showLoader = false;
               });
@@ -66,12 +53,14 @@ class _HomeState extends State<Home> {
           {
               print(error);
               data.formValues== {"data":null};
+              // redirects to the page of errors
               Navigator.pushNamed(context, ERROR_PAGE);
           }
         }();
     }
     else
     {
+      //hides the loader when data already exists
       setState(() {
         showLoader = false;
       });
@@ -80,7 +69,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    print(data.formValues);
+
     //large screens home page
     Widget LargeScreenPage = Container(
       width: double.infinity,

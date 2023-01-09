@@ -19,18 +19,23 @@ class _Frame2State extends State<Frame2> {
   late List protections;
   late List feedIn;
   late List feedOut;
+  late List central_feel_in;
+  late List luminairs;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    //print(data.formValues["data"]["wirings"]);
+    wirings = data.formValues["data"]["wirings"];
+    colors = data.formValues["data"]["colors"];
+    mountings = data.formValues["data"]["mountings"];
+    protections = data.formValues["data"]["protections"];
+    feedOut = data.formValues["data"]["feedout"];
+    feedIn = data.formValues["data"]["feedin"];
+    central_feel_in = data.formValues["data"]["central_feel_in"];
+    luminairs = data.formValues["data"]["luminairs"];
 
-    wirings = data.formValues["wirings"];
-    colors = data.formValues["colors"];
-    mountings = data.formValues["mountings"];
-    protections = data.formValues["protections"];
-    feedOut = data.formValues["feedout"];
-    feedIn = data.formValues["feedin"];
   }
   @override
   Widget build(BuildContext context)
