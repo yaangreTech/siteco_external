@@ -23,6 +23,8 @@ Future GetAllData() async
     _data.addAll({"luminairs": await fetchComponent(apiURL: "getAll-luminairs")});
     //colors
     _data.addAll({"colors": await fetchComponent(apiURL: "getAll-colors")});
+    //protections
+    _data.addAll({"protections": await fetchComponent(apiURL: "getAll-protections")});
 
     if(errorsStack.isEmpty)
     {

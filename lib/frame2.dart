@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/functions/global_data.dart';
+import 'package:flutter/services.dart';
 
 GlobalData data = GlobalData();
 
@@ -13,6 +14,7 @@ class Frame2 extends StatefulWidget {
 }
 
 class _Frame2State extends State<Frame2> {
+  // component name and other attributs
   late List wirings;
   late List colors;
   late List mountings;
@@ -21,12 +23,21 @@ class _Frame2State extends State<Frame2> {
   late List feedOut;
   late List central_feel_in;
   late List luminairs;
+
+  //name of the components
+  late List _wirings;
+  late List _colors;
+  late List _mountings;
+  late List _protections;
+  late List _feedIn;
+  late List _feedOut;
+  late List _central_feel_in;
+  late List _luminairs;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    //print(data.formValues["data"]["wirings"]);
     wirings = data.formValues["data"]["wirings"];
     colors = data.formValues["data"]["colors"];
     mountings = data.formValues["data"]["mountings"];
@@ -36,6 +47,14 @@ class _Frame2State extends State<Frame2> {
     central_feel_in = data.formValues["data"]["central_feel_in"];
     luminairs = data.formValues["data"]["luminairs"];
 
+    //retrieves the name of the components
+    _wirings = wirings.map((item) => item["name"]).toList();
+    _colors = colors.map((item) => item["name"]).toList();
+    _mountings = mountings.map((item) => item["name"]).toList();
+    _protections = protections.map((item) => item["name"]).toList();
+    _feedOut = feedOut.map((item) => item["name"]).toList();
+    _feedIn = feedIn.map((item) => item["name"]).toList();
+    _central_feel_in = central_feel_in.map((item) => item["name"]).toList();
   }
   @override
   Widget build(BuildContext context)
@@ -44,234 +63,237 @@ class _Frame2State extends State<Frame2> {
       child: SingleChildScrollView(
         child: Row(
           children: [
-            Expanded(flex: 6, child: Container(height: 1000,
-            child: Column(
-              children: [
-                //Basic parameter
-                Row(
-                  children: [
-                    Expanded(flex: 2, child: Frame2DottedTxt(label: "Basic parameter")),
-                    Expanded(flex: 6, child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(flex: 1, child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: wirings, defaultText: "Wiring", onChanged: (_){}),
-                        )),
-                        Expanded(flex: 1, child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: protections, defaultText: "Protection Class", onChanged: (_){}),
-                        )),
-                        Expanded(flex: 1, child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Select(options: colors, defaultText: "Color", onChanged: (_){}),
-                        )),
-                      ],
-                    )),
-                  ],
-                ),
-                SizedBox(height: 40,),
+            Expanded(flex: 6, child: Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+              child: Column(
+                children: [
+                  //Basic parameters
+                  Row(
+                    children: [
+                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Basic parameter")),
+                      Expanded(flex: 6, child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _wirings, defaultText: "Wiring", onChanged: (_){}),
+                          )),
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _protections, defaultText: "Protection Class", onChanged: (_){}),
+                          )),
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _colors, defaultText: "Color", onChanged: (_){}),
+                          )),
+                        ],
+                      )),
+                    ],
+                  ),
+                  SizedBox(height: 40,),
 
-                //Dimension
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 2, child: Frame2DottedTxt(label: "Dimension"),),
-                    Expanded(flex: 6, child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                                Expanded(flex: 4, child: Frame2Txtfield(hintText: "Area description for lightband",)),
-                                Expanded(flex: 1, child: Frame2DottedTxt(label: "either")),
-                                Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminares",)),
-                              ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Container()),
-                            Expanded(flex: 1, child: Frame2DottedTxt(label: "Or")),
-                            Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m",)),
-                          ],
-                        )],
-                        ))
-                  ],
-                    ),
-                SizedBox(height: 40,),
+                  //Dimension
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Dimension"),),
+                      Expanded(flex: 6, child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Area description for lightband",)),
+                                  Expanded(flex: 1, child: Frame2DottedTxt(label: "either")),
+                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminares",)),
+                                ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Container()),
+                              Expanded(flex: 1, child: Frame2DottedTxt(label: "Or")),
+                              Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m",)),
+                            ],
+                          )],
+                          ))
+                    ],
+                      ),
+                  SizedBox(height: 40,),
 
-                //Calc & Qty
-                Row(
-                  children: [
-                    Expanded(flex: 2, child: Container(),),
-                    Expanded(flex: 6, child: Row(
-                      children: [
-                        Expanded(flex: 4, child: Container()),
-                        Expanded(flex: 4, child: Row(
-                          children: [
-                            Expanded(child: Frame2DottedTxt(label: "Quantity:")),
-                            Expanded(child: Frame2DottedTxt(label: "Calc", bold: false,)),
-                            SizedBox(width: 16,),
-                            Expanded(child: Frame2DottedTxt(label: "Change", bold: false,))
-                          ],
-                        )),
-                        Expanded(flex: 2, child: Container()),
-                      ],
-                    )),
-                  ],
-                ),
+                  /*
+                  //Calc & Qty
+                  Row(
+                    children: [
+                      Expanded(flex: 2, child: Container(),),
+                      Expanded(flex: 6, child: Row(
+                        children: [
+                          Expanded(flex: 4, child: Container()),
+                          Expanded(flex: 4, child: Row(
+                            children: [
+                              Expanded(child: Frame2DottedTxt(label: "Quantity:")),
+                              Expanded(child: Frame2DottedTxt(label: "Calc", bold: false,)),
+                              SizedBox(width: 16,),
+                              Expanded(child: Frame2DottedTxt(label: "Change", bold: false,))
+                            ],
+                          )),
+                          Expanded(flex: 2, child: Container()),
+                        ],
+                      )),
+                    ],
+                  ),
 
-                //Luminaire
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 2, child: Frame2DottedTxt(label: "Luminaire",)),
-                    Expanded(flex: 6, child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Luminaire selection", options: [],)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "33",)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "33",)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Ceiling mounting", options: [],)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "18",)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "18",)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Frame2DottedTxt(label: "59TR9K",)),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                      ],
-                    ),),
+                  //Luminaire
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Luminaire",)),
+                      Expanded(flex: 6, child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Luminaire selection", options: [],)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "33",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "33",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Ceiling mounting", options: [],)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "18",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "18",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Frame2DottedTxt(label: "59TR9K",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                        ],
+                      ),),
 
-                  ],
-                ),
-                SizedBox(height: 50,),
+                    ],
+                  ),
+                  SizedBox(height: 50,),
 
-                //Accessories
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 2, child: Frame2DottedTxt(label: "Accessories",)),
-                    Expanded(flex: 6, child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 1-length", enabled: false,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 2-length", enabled: false,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Frame2DottedTxt(label: "etc",)),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: mountings,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "11",)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "11",)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Container()),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Frame2Txtfield(value: "Joint cover IP64", enabled: false,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Container()),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: mountings,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "1",)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "1",)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Container()),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          children: [
-                            Expanded(flex: 4, child: Frame2Txtfield(value: "Blankcover", enabled: false,)),
-                            Expanded(flex: 4, child: Row(
-                              children: [
-                                Expanded(child: Container(),),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                SizedBox(width: 16,),
-                                Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                              ],
-                            )),
-                            Expanded(flex: 2, child: Container()),
-                            // Expanded(flex: 2, child: ),
-                          ],
-                        ),
+                  //Accessories
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Accessories",)),
+                      Expanded(flex: 6, child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 1-length", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 2-length", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Frame2DottedTxt(label: "etc",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: mountings,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "11",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "11",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Joint cover IP64", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: mountings,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "1",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "1",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Blankcover", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
 
-                      ],
-                    ),),
+                        ],
+                      ),),
 
-                  ],
-                )
-                  ],
-                )
+                    ],
+                  )
+                  */
+                    ],
+                  )
             ),),
             Expanded(flex: 2, child: Container(height: 800,)),
           ],
@@ -282,13 +304,15 @@ class _Frame2State extends State<Frame2> {
 
 }
 
+
 class Frame2Txtfield extends StatefulWidget {
   String hintText;
   bool enabled;
   Color fillColor;
   String value;
   Function? onChanged;
-  Frame2Txtfield({this.hintText =  "", this.enabled = true, this.fillColor = Colors.white, this.value = "", this.onChanged, Key? key});
+  TextInputType keyboardType;
+  Frame2Txtfield({this.hintText =  "", this.enabled = true, this.fillColor = Colors.white, this.value = "", this.onChanged, this.keyboardType = TextInputType.text, Key? key});
 
   @override
   State<Frame2Txtfield> createState() => _Frame2TxtfieldState();
@@ -299,6 +323,7 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
   late bool enabled;
   late Color fillColor;
   late String value;
+  late TextInputType keyboardType;
   late Function? onChanged;
 
   late TextEditingController controller;
@@ -318,6 +343,7 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
   Widget build(BuildContext context) {
     Color borderColor = enabled==false ? lightGrey : red;
     return TextField(
+      keyboardType: keyboardType,
       controller: controller,
       onChanged: (value)
       {
