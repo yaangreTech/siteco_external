@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
+import 'package:siteco_external/functions/functions.dart';
 import 'package:siteco_external/functions/global_data.dart';
 import 'package:flutter/services.dart';
 
@@ -104,14 +105,14 @@ class _Frame2State extends State<Frame2> {
                             children: [
                                   Expanded(flex: 4, child: Frame2Txtfield(hintText: "Area description for lightband",)),
                                   Expanded(flex: 1, child: Frame2DottedTxt(label: "either")),
-                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminares",)),
+                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminares", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
                                 ],
                           ),
                           Row(
                             children: [
                               Expanded(flex: 4, child: Container()),
                               Expanded(flex: 1, child: Frame2DottedTxt(label: "Or")),
-                              Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m",)),
+                              Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
                             ],
                           )],
                           ))
@@ -312,7 +313,8 @@ class Frame2Txtfield extends StatefulWidget {
   String value;
   Function? onChanged;
   TextInputType keyboardType;
-  Frame2Txtfield({this.hintText =  "", this.enabled = true, this.fillColor = Colors.white, this.value = "", this.onChanged, this.keyboardType = TextInputType.text, Key? key});
+  List inputFormatters;
+  Frame2Txtfield({this.hintText =  "", this.enabled = true, this.fillColor = Colors.white, this.value = "", this.onChanged, this.keyboardType = TextInputType.text, this.inputFormatters = const [], Key? key});
 
   @override
   State<Frame2Txtfield> createState() => _Frame2TxtfieldState();
@@ -325,6 +327,7 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
   late String value;
   late TextInputType keyboardType;
   late Function? onChanged;
+  late List inputFormatters;
 
   late TextEditingController controller;
   @override
@@ -337,6 +340,8 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
     value = widget.value;
     onChanged = widget.onChanged;
     controller = TextEditingController(text: widget.value);
+    keyboardType = widget.keyboardType;
+    inputFormatters = widget.inputFormatters;
   }
 
   @override
@@ -345,6 +350,7 @@ class _Frame2TxtfieldState extends State<Frame2Txtfield> {
     return TextField(
       keyboardType: keyboardType,
       controller: controller,
+      inputFormatters: [...inputFormatters],
       onChanged: (value)
       {
         onChanged?.call(value);

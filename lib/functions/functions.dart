@@ -14,13 +14,13 @@ List inputRegex({required Map expressions})
   List regexp = [];
   for(var entry in expressions.entries)
   {
-    if(entry.value.toLowerCase() == 'allow')
+    if(entry.key.toLowerCase() == 'allow')
     {
-      regexp.add(FilteringTextInputFormatter.allow(RegExp(entry.key)));
+      regexp.add(FilteringTextInputFormatter.allow(RegExp(entry.value)));
     }
     else
     {
-      regexp.add(FilteringTextInputFormatter.deny(RegExp(entry.key)));
+      regexp.add(FilteringTextInputFormatter.deny(RegExp(entry.value)));
     }
   }
   return regexp;
