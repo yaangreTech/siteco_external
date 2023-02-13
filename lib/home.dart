@@ -70,6 +70,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
+    //print(json.encode(data.formValues));
+
     //large screens home page
     Widget LargeScreenPage = Container(
       width: double.infinity,
@@ -204,7 +206,7 @@ class _HomeState extends State<Home> {
       ),
       decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.cover,
+              //fit: BoxFit.cover,
               image: AssetImage("assets/images/landing.jpg")
           )
       ),

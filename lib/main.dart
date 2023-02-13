@@ -12,7 +12,7 @@ void main() {
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'HelveticaNowText',
+          fontFamily: 'HelveticaNow',
           scaffoldBackgroundColor: Colors.white,
           colorScheme: const ColorScheme(
               brightness: Brightness.light,

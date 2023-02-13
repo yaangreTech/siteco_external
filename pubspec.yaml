@@ -84,11 +84,13 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-   - family: HelveticaNowText
+   - family: HelveticaNow
      fonts:
-       - asset: assets/fonts/HelveticaNowText-Regular.otf
-       - asset: assets/fonts/HelveticaNowText-Regular.otf
+       - asset: assets/fonts/HelveticaNow_Regular.woff2
+       - asset: assets/fonts/HelveticaNow_Light.woff2
          style: italic
+       - asset: assets/fonts/HelveticaNow_Bold.woff2
+         weight: 700
    - family: ChelaOne
      fonts:
       - asset: assets/fonts/ChelaOne-Regular.ttf
