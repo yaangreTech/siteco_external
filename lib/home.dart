@@ -108,8 +108,8 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
             child: Align(alignment: Alignment.centerRight, child: Container(
-              height: 330,
-              width: 700,
+              height: 400,
+              width: 750,
               color: Colors.white.withOpacity(0.5),
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -206,8 +206,8 @@ class _HomeState extends State<Home> {
       ),
       decoration: BoxDecoration(
           image: DecorationImage(
-              //fit: BoxFit.cover,
-              image: AssetImage("assets/images/landing.jpg")
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/landing.png")
           )
       ),
     );

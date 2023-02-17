@@ -13,11 +13,13 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: 'HelveticaNow',
+          //textTheme: TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle(),).apply(bodyColor: Color.fromARGB(33, 37, 41, 1), displayColor: Color.fromARGB(33, 37, 41, 1),),
+          //textTheme: TextTheme(),
           scaffoldBackgroundColor: Colors.white,
           colorScheme: const ColorScheme(
               brightness: Brightness.light,
               primary: Color(0xFFF40505),
-              onPrimary: Color(0xFFFFFFFF),
+              onPrimary: Color.fromARGB(33, 37, 41, 1),
               secondary: Color(0xFF707070),
               onSecondary: Color(0xFFFFFFFF),
               error: Color(0xFFF39E9E),
