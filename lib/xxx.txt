@@ -1,0 +1,246 @@
+Container(
+      child: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(flex: 7, child: Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+              child: Column(
+                children: [
+                  //Basic parameters
+                  Row(
+                    children: [
+                      Expanded(flex: 2, child: Text("Basic parameter", style: textStyle,)),
+                      Expanded(flex: 6, child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _wirings, defaultText: "Wiring", onChanged: (_){}),
+                          )),
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _protections, defaultText: "Protection Class", onChanged: (_){}),
+                          )),
+                          Expanded(flex: 1, child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Select(options: _colors, defaultText: "Color", onChanged: (_){}),
+                          )),
+                        ],
+                      )),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+
+                  //Dimension
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: Text("Dimension", style: textStyle,),),
+                      Expanded(flex: 6, child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Area description for lightband",)),
+                                  Expanded(flex: 1, child: Text("either", style: textStyle,)),
+                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminaires", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
+                                ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Container()),
+                              Expanded(flex: 1, child: Text("Or", style: textStyle)),
+                              Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
+                            ],
+                          )],
+                          ))
+                    ],
+                      ),
+                  SizedBox(height: 20,),
+
+
+                  //Calc & Qty
+                  // Row(
+                  //   children: [
+                  //     Expanded(flex: 2, child: Container(),),
+                  //     Expanded(flex: 6, child: Row(
+                  //       children: [
+                  //         Expanded(flex: 4, child: Container()),
+                  //         Expanded(flex: 4, child: Row(
+                  //           children: [
+                  //             Expanded(child: Frame2DottedTxt(label: "Quantity:")),
+                  //             Expanded(child: Frame2DottedTxt(label: "Calc", bold: false,)),
+                  //             SizedBox(width: 16,),
+                  //             Expanded(child: Frame2DottedTxt(label: "Change", bold: false,))
+                  //           ],
+                  //         )),
+                  //         Expanded(flex: 2, child: Container()),
+                  //       ],
+                  //     )),
+                  //   ],
+                  // ),
+
+                  //Luminaire
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+                      Expanded(flex: 2, child: Text("Luminaire", style: textStyle)),
+                      Expanded(flex: 6, child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Luminaire selection", options: [],)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "33",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "33",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              //Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Ceiling mounting", options: [],)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "18",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "18",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              //Expanded(flex: 2, child: Frame2DottedTxt(label: "59TR9K",)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                        ],
+                      ),),
+
+                    ],
+                  ),
+                  SizedBox(height: 50,),
+
+                  //Accessories
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: Text("Accessories", style: textStyle)),
+                      Expanded(flex: 6, child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 1-length", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Text("51TS12CN3B5L",style: textStyle)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 2-length", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Text("etc", style: textStyle)),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: _mountings,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "11",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "11",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Joint cover IP64", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: _mountings,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "1",)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "1",)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Frame2Txtfield(value: "Blankcover", enabled: false,)),
+                              Expanded(flex: 4, child: Row(
+                                children: [
+                                  Expanded(child: Container(),),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                  SizedBox(width: 16,),
+                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
+                                ],
+                              )),
+                              Expanded(flex: 2, child: Container()),
+                              // Expanded(flex: 2, child: ),
+                            ],
+                          ),
+
+                        ],
+                      ),),
+
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                    ],
+
+                  )
+            ),),
+            Expanded(flex: 2, child: Container(height: 800,)),
+
+          ],
+        ),
+      ),
+    );

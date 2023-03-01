@@ -24,21 +24,22 @@ Widget SmallScreenAppBar = Container(
 
 //large screen app bar
 Widget LargeScreenAppBar = Container(
-  //decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey, width: 2)),),
+  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
   padding: EdgeInsets.all(10),
   child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
         children: [
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             child: SvgPicture.asset("assets/images/siteco-logo.svg"),
-            height: 20,
-            width: 100,
+            height: 10,
+            width: 70,
           ),
           Text(
             "Light configuration",
-            style: TextStyle(color: red, fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(color: red, fontSize: 14, fontWeight: FontWeight.bold),
           )
         ],
       ),

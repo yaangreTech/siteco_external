@@ -4,8 +4,16 @@ import 'package:siteco_external/Consts/colors/colors.dart';
 import 'package:siteco_external/functions/functions.dart';
 import 'package:siteco_external/functions/global_data.dart';
 import 'package:flutter/services.dart';
+import 'package:siteco_external/widgets/_component.dart';
+import 'package:siteco_external/widgets/frame2_textfield.dart';
+import 'package:siteco_external/widgets/inputs.dart';
+import 'package:siteco_external/widgets/select.dart';
 
 GlobalData data = GlobalData();
+var textStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold );
+
+//default
+Map choosenData = {};
 
 class Frame2 extends StatefulWidget {
   const Frame2({Key? key}) : super(key: key);
@@ -60,418 +68,136 @@ class _Frame2State extends State<Frame2> {
   @override
   Widget build(BuildContext context)
   {
+
     return Container(
-      child: SingleChildScrollView(
-        child: Row(
-          children: [
-            Expanded(flex: 6, child: Container(
-              decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 8,
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  //Basic parameters
+                  //basic parameters
                   Row(
                     children: [
-                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Basic parameter")),
-                      Expanded(flex: 6, child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(flex: 1, child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Select(options: _wirings, defaultText: "Wiring", onChanged: (_){}),
-                          )),
-                          Expanded(flex: 1, child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Select(options: _protections, defaultText: "Protection Class", onChanged: (_){}),
-                          )),
-                          Expanded(flex: 1, child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Select(options: _colors, defaultText: "Color", onChanged: (_){}),
-                          )),
-                        ],
+                      Expanded(child: Text("Basic parameters", style: textStyle,)),
+                      Expanded(child:Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Select2(options: _wirings, defaultText: "Wiring", onChanged: (_){choosenData["wiring"]=_;}),
+                      )),
+                      Expanded(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Select2(options: _protections, defaultText: "Protections", onChanged: (_){choosenData["protections"]=_;}),
+                      )),
+                      Expanded(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Select2(options: _colors, defaultText: "Color", onChanged: (_){choosenData["color"]=_;}),
                       )),
                     ],
                   ),
-                  SizedBox(height: 40,),
+
+                  SizedBox(height: 20,),
 
                   //Dimension
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Dimension"),),
-                      Expanded(flex: 6, child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Area description for lightband",)),
-                                  Expanded(flex: 1, child: Frame2DottedTxt(label: "either")),
-                                  Expanded(flex: 4, child: Frame2Txtfield(hintText: "Number of luminares", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
-                                ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Container()),
-                              Expanded(flex: 1, child: Frame2DottedTxt(label: "Or")),
-                              Expanded(flex: 4, child: Frame2Txtfield(hintText: "Length specification in m", inputFormatters: inputRegex(expressions: {"allow": "[0-9]+"}),)),
-                            ],
-                          )],
-                          ))
-                    ],
+                      Expanded(child: Text("Dimensions", style: textStyle,)),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          children: [
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Input(maxLines: 3, hintText: "Description", keyboardType: TextInputType.text, onChanged: (_){choosenData["description"]=_;}),
+                            )),
+                            Expanded(child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("either", style: textStyle,),
+                                    )),
+                                    Expanded(
+                                      flex: 2,
+                                        child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Input(maxLines: 1, hintText: "Number of Luminaires", keyboardType: TextInputType.text, onChanged: (_){choosenData["n_luminaires"]=_;}),
+                                    )),
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  children: [
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("or", style: textStyle,),
+                                    )),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Input(maxLines: 1, hintText: "Length specification in m", keyboardType: TextInputType.text, onChanged: (_){choosenData["length_specification"]=_;}),
+                                    )),
+                                  ],
+                                )
+                              ],
+                            )),
+                          ],
+                        ),
                       ),
-                  SizedBox(height: 40,),
-
-                  /*
-                  //Calc & Qty
-                  Row(
-                    children: [
-                      Expanded(flex: 2, child: Container(),),
-                      Expanded(flex: 6, child: Row(
-                        children: [
-                          Expanded(flex: 4, child: Container()),
-                          Expanded(flex: 4, child: Row(
-                            children: [
-                              Expanded(child: Frame2DottedTxt(label: "Quantity:")),
-                              Expanded(child: Frame2DottedTxt(label: "Calc", bold: false,)),
-                              SizedBox(width: 16,),
-                              Expanded(child: Frame2DottedTxt(label: "Change", bold: false,))
-                            ],
-                          )),
-                          Expanded(flex: 2, child: Container()),
-                        ],
-                      )),
                     ],
                   ),
 
-                  //Luminaire
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Luminaire",)),
-                      Expanded(flex: 6, child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Luminaire selection", options: [],)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "33",)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "33",)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Ceiling mounting", options: [],)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "18",)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "18",)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Frame2DottedTxt(label: "59TR9K",)),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                        ],
-                      ),),
+                  SizedBox(height: 20,),
 
+                  //Luminaires
+                  Row(
+                    children: [
+                      Expanded(child: Text("Luminaires", style: textStyle,)),
+                      Expanded(flex: 3, child: Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,))
                     ],
                   ),
-                  SizedBox(height: 50,),
+
+                  SizedBox(height: 20,),
 
                   //Accessories
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(flex: 2, child: Frame2DottedTxt(label: "Accessories",)),
-                      Expanded(flex: 6, child: Column(
+                      Expanded(child: Text("Accessories", style: textStyle,)),
+                      Expanded(flex: 3, child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 1-length", enabled: false,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Frame2DottedTxt(label: "51TS12CN3B5L",)),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Frame2Txtfield(value: "Mounting rail 2-length", enabled: false,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Frame2DottedTxt(label: "etc",)),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Mounting rail 3-length", options: mountings,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "11",)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "11",)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Container()),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Frame2Txtfield(value: "Joint cover IP64", enabled: false,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Container()),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Select(onChanged: (_){}, defaultText: "Feed-in 5wire with endcap", options: mountings,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "1",)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "1",)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Container()),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-                          SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Expanded(flex: 4, child: Frame2Txtfield(value: "Blankcover", enabled: false,)),
-                              Expanded(flex: 4, child: Row(
-                                children: [
-                                  Expanded(child: Container(),),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                  SizedBox(width: 16,),
-                                  Expanded(child: Frame2Txtfield(value: "0", enabled: false,)),
-                                ],
-                              )),
-                              Expanded(flex: 2, child: Container()),
-                              // Expanded(flex: 2, child: ),
-                            ],
-                          ),
-
+                          Component(options: ["Mounting rail 1-length"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,),
+                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,),
+                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,),
+                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,),
+                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,),
+                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                          SizedBox(height: 5,)
                         ],
-                      ),),
-
+                      ))
                     ],
-                  )
-                  */
-                    ],
-                  )
-            ),),
-            Expanded(flex: 2, child: Container(height: 800,)),
-          ],
-        ),
-      ),
-    );
-  }
-
-}
-
-
-class Frame2Txtfield extends StatefulWidget {
-  String hintText;
-  bool enabled;
-  Color fillColor;
-  String value;
-  Function? onChanged;
-  TextInputType keyboardType;
-  List inputFormatters;
-  Frame2Txtfield({this.hintText =  "", this.enabled = true, this.fillColor = Colors.white, this.value = "", this.onChanged, this.keyboardType = TextInputType.text, this.inputFormatters = const [], Key? key});
-
-  @override
-  State<Frame2Txtfield> createState() => _Frame2TxtfieldState();
-}
-
-class _Frame2TxtfieldState extends State<Frame2Txtfield> {
-  late String hintText;
-  late bool enabled;
-  late Color fillColor;
-  late String value;
-  late TextInputType keyboardType;
-  late Function? onChanged;
-  late List inputFormatters;
-
-  late TextEditingController controller;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    hintText = widget.hintText;
-    enabled = widget.enabled;
-    fillColor = widget.fillColor;
-    value = widget.value;
-    onChanged = widget.onChanged;
-    controller = TextEditingController(text: widget.value);
-    keyboardType = widget.keyboardType;
-    inputFormatters = widget.inputFormatters;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Color borderColor = enabled==false ? lightGrey : red;
-    return TextField(
-      keyboardType: keyboardType,
-      controller: controller,
-      inputFormatters: [...inputFormatters],
-      onChanged: (value)
-      {
-        onChanged?.call(value);
-      },
-      enabled: enabled,
-      cursorColor: borderColor,
-      cursorHeight: 22,
-      decoration: InputDecoration(
-        hoverColor: fillColor,
-          enabledBorder: OutlineInputBorder(
-            borderSide:  BorderSide(color: borderColor),
-            borderRadius: BorderRadius.all(Radius.circular(0))
+                  ),
+                ],
+              ),
+            ),
           ),
-        border:  OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-            borderRadius: BorderRadius.all(Radius.circular(0))
-        ),
-        hintText: hintText,
-        contentPadding: EdgeInsets.symmetric(horizontal: 8),
-        filled: true,
-        fillColor: fillColor,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-            borderRadius: BorderRadius.all(Radius.circular(0))
-        ),
-      ),
-    );
-  }
-}
-
-class Frame2DottedTxt extends StatefulWidget {
-  String label;
-  bool bold;
-  Frame2DottedTxt({this.bold = true, this.label = "", Key? key});
-
-  @override
-  State<Frame2DottedTxt> createState() => _Frame2DottedTxtState();
-}
-
-class _Frame2DottedTxtState extends State<Frame2DottedTxt> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: DottedBorder(
-        dashPattern: [6, 6, 6, 6],
-        color: grey,
-        strokeWidth: 1,
-        child: Container(margin:  EdgeInsets.fromLTRB(4, 8, 4, 8),child: Text(widget.label, style: TextStyle(fontSize: 18, fontWeight: widget.bold ? FontWeight.bold : FontWeight.normal ),)),
-      ),
-    );
-  }
-}
-
-//select field
-class Select extends StatefulWidget {
-  List options = [];
-  Function onChanged = (){};
-  bool showBorders = true;
-  String? defaultText;
-  Select({required List options, required Function onChanged, bool showBorders=true, this.defaultText}){
-    this.options = options.map((e) => e.toString()).toList();
-    this.onChanged = onChanged;
-    this.showBorders = showBorders;
-    if(this.defaultText!=null)
-    {
-      this.options = [this.defaultText, ...this.options];
-    }
-  }
-
-  @override
-  _SelectState createState() => _SelectState();
-}
-
-class _SelectState extends State<Select> {
-  int index = 0;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    widget.onChanged(widget.options[0]);
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(0),
-          border: widget.showBorders == true ? Border.all(width: 0.8, color: red): null
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton(
-            elevation: 8,
-            focusColor: Colors.white,
-            underline: SizedBox(),
-            isDense: true,
-            isExpanded: true,
-            iconEnabledColor: red,
-            value: widget.options[index],
-            items: widget.options.map((value) {
-              return DropdownMenuItem(
-                value: value.toString(),
-                child: Text(value.toString()),
-              );
-            }).toList(),
-            onChanged: (selectedValue) {
-              if(selectedValue!=widget.defaultText)
-              {
-                setState(()
-                {
-                  index = widget.options.indexOf(selectedValue.toString());
-                  widget.onChanged?.call(selectedValue.toString());
-                });
-              }
-            },
-          ),
+          Expanded(child: Container(), flex: 2,)
         ],
       ),
     );
   }
+
 }
+
+
+
+
+
+

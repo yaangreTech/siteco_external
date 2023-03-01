@@ -51,7 +51,7 @@ class _NewProjectState extends State<NewProject> {
 Widget Banner (BuildContext context)
 {
   return Container(
-    height: 50,
+    height: 40,
     width: MediaQuery.of(context).size.width,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,33 +64,33 @@ Widget Banner (BuildContext context)
           crossAxisAlignment: CrossAxisAlignment.end,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            SizedBox(child: SvgPicture.asset("assets/images/siteco-logo.svg", fit: BoxFit.contain, ), height: 100, width: 200,),
-            SizedBox(width: 25),
-            Text("Licross Configurator", style: TextStyle(fontSize: 28, color: red, fontWeight: FontWeight.bold),),
+            SizedBox(child: SvgPicture.asset("assets/images/siteco-logo.svg", fit: BoxFit.contain, ), height: 70, width: 200,),
+            SizedBox(width: 15),
+            Text("Licross Configurator", style: TextStyle(fontSize: 22, color: red, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
       Row(
         children: [
-          GreyOutlinedButton(onPressed: ()
+          RedOutlinedButton(onPressed: ()
           {
             FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
           }, child: Row(
             children: [
-              Text("Copy", style: TextStyle(fontSize: 22, color: grey),),
+              Text("Copy", style: TextStyle(fontSize: 18, color: red),),
               SizedBox(width: 15,),
-              Icon(Icons.copy, color: grey,)
+              Icon(Icons.copy, color: red,)
             ],
           )),
           SizedBox(width: 20,),
-          GreyOutlinedButton(onPressed: ()
+          RedOutlinedButton(onPressed: ()
           {
             Share.share(project_id);
           }, child: Row(
             children: [
-              Text("Share via Email", style: TextStyle(fontSize: 22, color: grey),),
+              Text("Share via Email", style: TextStyle(fontSize: 18, color: red),),
               SizedBox(width: 15,),
-              Icon(Icons.email_outlined, color: grey)
+              Icon(Icons.email_outlined, color: red)
             ],
           )),
         ],

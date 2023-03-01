@@ -136,13 +136,13 @@ class _CustStepperState extends State<CustStepper> {
               children: [
                 //hides the previous button when the current step is == 0
                 if(currentStep>0)
-                  GreyOutlinedButton(onPressed: ()
+                  RedOutlinedButton(onPressed: ()
                   {
                     GoBackward();
                   }, child: Row(
                     children: [
-                      Icon(Icons.navigate_before_sharp, color: grey,),
-                      Text("Previous step", style: TextStyle(fontSize: 18, color: grey),),
+                      Icon(Icons.navigate_before_sharp, color: red,),
+                      Text("Previous step", style: TextStyle(fontSize: 18, color: red),),
                     ],
                   ))
                 else

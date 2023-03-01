@@ -5,6 +5,7 @@ import 'package:siteco_external/functions/api_methods.dart';
 import 'package:siteco_external/functions/global_data.dart';
 import 'package:siteco_external/home.dart';
 import 'package:siteco_external/widgets/restart_app.dart';
+import 'package:siteco_external/widgets/what_is.dart';
 import 'new_project.dart';
 
 void main() {
@@ -33,6 +34,7 @@ void main() {
         HOME: (context) => const Home(),
         ERROR_PAGE: (context) => ErrorPage(),
         PROJECT_SETUP: (context)=>NewProject(),
+        WHAT_IS: (context)=>WhatIS(),
       },
     ),
   ));
