@@ -56,124 +56,126 @@ class _Frame1State extends State<Frame1> {
     var isDisabled = config_mode == radioValues.auto ? true: false;
     return Padding(
       padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(flex: 2, child: Text("Project Title", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
-              Expanded(flex: 5, child: TextField(
-                cursorColor: grey,
-                cursorHeight: 22,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
-                  hintText: "Add the title here",
-                  contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: grey),
-                    borderRadius: BorderRadius.all(Radius.circular(0))
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(flex: 2, child: Text("Project Title", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
+                Expanded(flex: 5, child: TextField(
+                  cursorColor: grey,
+                  cursorHeight: 22,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
+                    hintText: "Add the title here",
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                    filled: true,
+                    fillColor: Colors.white,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: grey),
+                      borderRadius: BorderRadius.all(Radius.circular(0))
+                    ),
                   ),
-                ),
-              ))
-            ],
-          ),
-          SizedBox(height: 40,),
-          Row(
-            children: [
-              Expanded(flex: 2, child: Text("Project ID", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
-              Expanded(flex: 5, child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: Row(
-                    children: [
-                      Text(project_id, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey)),
-                      IconButton(onPressed: ()
-                      {
-                        FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
-                      }, icon: Icon(Icons.copy, size: 26, color: grey,))
-                    ],
-                  ))
-                ],
-              ))
-            ],
-          ),
-          SizedBox(height: 40,),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 2, child: Text("Configuration Mode", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
-              Expanded(flex: 5, child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Radio(activeColor: red, value: radioValues.custom, groupValue: config_mode, onChanged: (_)
-                      {
-                        setState(() {
-                          config_mode = _;
-                        });
-                      }),
-                      // Checkbox(
-                      //   activeColor: red,
-                      //   //checkColor: red,
-                      //     value: chkBox1,
-                      //     onChanged: (bool? value){
-                      //       setState(() {
-                      //         chkBox1 = value;
-                      //       });
-                      //     }
-                      // ),
-                      SizedBox(width: 20,),
-                      Text("Directly select components", style: TextStyle(fontSize: 18, color: grey))
-                    ],
-                  ),
-                  SizedBox(height: 30,),
-                  Row(
-                    children: [
-                      Radio( activeColor: red, value: radioValues.auto, groupValue: config_mode, onChanged: (_)
-                      {
-                        setState(() {
-                          config_mode = _;
-                        });
-                      }),
-                      // Checkbox(
-                      //   activeColor: red,
-                      //   //checkColor: red,
-                      //     value: chkBox2,
-                      //     onChanged: (bool? value){
-                      //       setState(() {
-                      //         chkBox2 = value;
-                      //       });
-                      //     }
-                      // ),
-                      SizedBox(width: 20,),
-                      Text("Start configuration based on room size (auto-proposed configuration)", style: TextStyle(fontSize: 18, color: grey),)
-                    ],
-                  ),
-                  SizedBox(height: 50,),
-                  Container(
-                    decoration: BoxDecoration(border: Border.all(color: isDisabled ? Colors.white30: grey, width: 1), color: Colors.white),
-                    child: IgnorePointer(
-                      ignoring: isDisabled,
-                      child: ColorFiltered(
-                        colorFilter: ColorFilter.mode(isDisabled ? Colors.white30: Colors.white, BlendMode.modulate),
-                        child: Column(
-                          children: [
-                            RoomConfigItem(label: "Length (m)", sliderValue: 30, max: 60, min: 1),
-                            RoomConfigItem(label: "Width (m)", sliderValue: 30, max: 60, min: 1),
-                            RoomConfigItem(label: "Height (m)", sliderValue: 7, max: 14, min: 1),
-                            RoomConfigItem(label: "Mounting height (m)", sliderValue: 2, max: 14, min: 1),
-                            RoomConfigItem(label: "Desired illuminance (lux)", sliderValue: 300, max: 500, min: 100),
-                          ],
+                ))
+              ],
+            ),
+            SizedBox(height: 40,),
+            Row(
+              children: [
+                Expanded(flex: 2, child: Text("Project ID", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
+                Expanded(flex: 5, child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: Row(
+                      children: [
+                        Text(project_id, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey)),
+                        IconButton(onPressed: ()
+                        {
+                          FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
+                        }, icon: Icon(Icons.copy, size: 26, color: grey,))
+                      ],
+                    ))
+                  ],
+                ))
+              ],
+            ),
+            SizedBox(height: 40,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(flex: 2, child: Text("Configuration Mode", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: grey),)),
+                Expanded(flex: 5, child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(activeColor: red, value: radioValues.custom, groupValue: config_mode, onChanged: (_)
+                        {
+                          setState(() {
+                            config_mode = _;
+                          });
+                        }),
+                        // Checkbox(
+                        //   activeColor: red,
+                        //   //checkColor: red,
+                        //     value: chkBox1,
+                        //     onChanged: (bool? value){
+                        //       setState(() {
+                        //         chkBox1 = value;
+                        //       });
+                        //     }
+                        // ),
+                        SizedBox(width: 20,),
+                        Text("Directly select components", style: TextStyle(fontSize: 18, color: grey))
+                      ],
+                    ),
+                    SizedBox(height: 30,),
+                    Row(
+                      children: [
+                        Radio( activeColor: red, value: radioValues.auto, groupValue: config_mode, onChanged: (_)
+                        {
+                          setState(() {
+                            config_mode = _;
+                          });
+                        }),
+                        // Checkbox(
+                        //   activeColor: red,
+                        //   //checkColor: red,
+                        //     value: chkBox2,
+                        //     onChanged: (bool? value){
+                        //       setState(() {
+                        //         chkBox2 = value;
+                        //       });
+                        //     }
+                        // ),
+                        SizedBox(width: 20,),
+                        Text("Start configuration based on room size (auto-proposed configuration)", style: TextStyle(fontSize: 18, color: grey),)
+                      ],
+                    ),
+                    SizedBox(height: 50,),
+                    Container(
+                      decoration: BoxDecoration(border: Border.all(color: isDisabled ? Colors.white30: grey, width: 1), color: Colors.white),
+                      child: IgnorePointer(
+                        ignoring: isDisabled,
+                        child: ColorFiltered(
+                          colorFilter: ColorFilter.mode(isDisabled ? Colors.white30: Colors.white, BlendMode.modulate),
+                          child: Column(
+                            children: [
+                              RoomConfigItem(label: "Length (m)", sliderValue: 30, max: 60, min: 1),
+                              RoomConfigItem(label: "Width (m)", sliderValue: 30, max: 60, min: 1),
+                              RoomConfigItem(label: "Height (m)", sliderValue: 7, max: 14, min: 1),
+                              RoomConfigItem(label: "Mounting height (m)", sliderValue: 2, max: 14, min: 1),
+                              RoomConfigItem(label: "Desired illuminance (lux)", sliderValue: 300, max: 500, min: 100),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ))
-            ],
-          ),
-        ],
+                    )
+                  ],
+                ))
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

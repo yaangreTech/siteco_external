@@ -151,39 +151,39 @@ class _Frame2State extends State<Frame2> {
 
                   SizedBox(height: 20,),
 
-                  //Luminaires
-                  Row(
-                    children: [
-                      Expanded(child: Text("Luminaires", style: textStyle,)),
-                      Expanded(flex: 3, child: Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,))
-                    ],
-                  ),
-
-                  SizedBox(height: 20,),
+                  // //Luminaires
+                  // Row(
+                  //   children: [
+                  //     Expanded(child: Text("Luminaires", style: textStyle,)),
+                  //     Expanded(flex: 3, child: Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,))
+                  //   ],
+                  // ),
+                  //
+                  // SizedBox(height: 20,),
 
                   //Accessories
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: Text("Accessories", style: textStyle,)),
-                      Expanded(flex: 3, child: Column(
-                        children: [
-                          Component(options: ["Mounting rail 1-length"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,),
-                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,),
-                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,),
-                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,),
-                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,),
-                          Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
-                          SizedBox(height: 5,)
-                        ],
-                      ))
-                    ],
-                  ),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Expanded(child: Text("Accessories", style: textStyle,)),
+                  //     Expanded(flex: 3, child: Column(
+                  //       children: [
+                  //         Component(options: ["Mounting rail 1-length"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,),
+                  //         Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,),
+                  //         Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,),
+                  //         Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,),
+                  //         Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,),
+                  //         Component(options: ["Luminaires"], textField1Value: 18, textField2Value: 33,),
+                  //         SizedBox(height: 5,)
+                  //       ],
+                  //     ))
+                  //   ],
+                  // ),
                 ],
               ),
             ),

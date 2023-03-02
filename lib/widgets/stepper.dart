@@ -14,6 +14,9 @@ class CustStepper extends StatefulWidget {
 
 class _CustStepperState extends State<CustStepper> {
   int currentStep = 0;
+  //subframe currentStep
+  int subFrameCurrentStep = 0;
+  int subframe = 3;
   //pageview.builder's controller
   var controller;
 
@@ -35,9 +38,18 @@ class _CustStepperState extends State<CustStepper> {
   {
     if(currentStep<widget.frames.length-1)
     {
-      setState(() {
-        currentStep++;
-      });
+      if(subFrameCurrentStep == subframe)
+      {
+        setState(() {
+          currentStep++;
+        });
+      }
+      else
+      {
+        setState(() {
+          subFrameCurrentStep++;
+        });
+      }
       controller.animateToPage(currentStep,
           duration: Duration(milliseconds: 2000), curve: Curves.easeInOut);
     }
@@ -105,6 +117,7 @@ class _CustStepperState extends State<CustStepper> {
               children: [
                 //name of the frame
                 Expanded(child: UnderlinedText(text: frames[currentStep].title)),
+                Text(subFrameCurrentStep.toString()),
                 SizedBox(width: 10,),
                 //indicators
                 Row(children: [...indexFrames]),
