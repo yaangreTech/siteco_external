@@ -23,12 +23,35 @@ class _CustStepperState extends State<CustStepper> {
   var frames;
   List indexFrames = [];
 
+  //a map of each frames and the number of subframes they have
+  Map frames_subframes = {};
+
+  // a flattened list of frames
+  var frames_ = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     currentStep = widget.initStep;
     controller = PageController(initialPage: currentStep);
+
+
+    //flattens the frames list
+    for(var i in widget.frames)
+    {
+      int index = widget.frames.indexOf(i);
+      if(i.frames[0]!=Container())
+      {
+        frames_ = [...frames_, ...i.frames];
+        frames_subframes[index] = i.frames.length;
+      }
+      else
+      {
+        frames_.add(i);
+        frames_subframes[index] = 1;
+      }
+    }
 
 
   }
@@ -38,10 +61,11 @@ class _CustStepperState extends State<CustStepper> {
   {
     if(currentStep<widget.frames.length-1)
     {
-      if(subFrameCurrentStep == subframe)
+      if(subFrameCurrentStep == frames_subframes[currentStep])
       {
         setState(() {
           currentStep++;
+          subFrameCurrentStep = 0;
         });
       }
       else
@@ -61,9 +85,20 @@ class _CustStepperState extends State<CustStepper> {
   {
     if(currentStep>=1)
     {
-      setState(() {
-        currentStep--;
-      });
+
+      if(subFrameCurrentStep == frames_subframes[currentStep])
+      {
+        setState(() {
+          currentStep++;
+          subFrameCurrentStep = 0;
+        });
+      }
+      else
+      {
+        setState(() {
+          subFrameCurrentStep--;
+        });
+      }
       controller.animateToPage(currentStep,
           duration: Duration(milliseconds: 1000), curve: Curves.easeInOut);
     }
@@ -80,32 +115,45 @@ class _CustStepperState extends State<CustStepper> {
     frames = widget.frames;
     indexFrames = [];
     bool isCurrentFrame;
+    var n_frames = 0;
+
+    print(frames_subframes);
     //list of index frames
-    for(var i = 0; i < widget.frames.length; i++)
+    for(var i = 0; i < frames.length; i++)
     {
       var number = (i+1).toString().padLeft(2, '0');
       isCurrentFrame = i == currentStep;
-      indexFrames.add(GestureDetector(
-        onTap: ()
-        {
-          if(currentStep!=i)
-          {
-            setState(() {
-              currentStep = i;
-            });
+      indexFrames.add(
+          GestureDetector(
+            onTap: ()
+            {
+              if(currentStep!=i)
+              {
+                setState(() {
+                  currentStep = i;
+                });
 
-            controller.animateToPage(currentStep,
-                duration: Duration(milliseconds: 2000), curve: Curves.easeInOut);
-          }
-        },
-        child: Row(
-          children: [
-            UnderlinedText(text: number, color: isCurrentFrame? red: grey),
-            SizedBox(width: 10,)
-          ],
-        ),
-      ));
+                controller.animateToPage(currentStep,
+                    duration: Duration(milliseconds: 2000), curve: Curves.easeInOut);
+              }
+            },
+            child: Row(
+              children: [
+                UnderlinedText(text: number, color: isCurrentFrame? red: grey),
+                SizedBox(width: 10,)
+              ],
+            ),
+          )
+      );
+
+      if(frames[i] is List)
+      {
+        n_frames += int.parse(frames[i].length) - 1;
+      }
+      n_frames++;
     }
+
+    print(frames_.length);
 
     return Expanded(
       child: Column(
@@ -132,11 +180,13 @@ class _CustStepperState extends State<CustStepper> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: PageView.builder(
                   controller: controller,
-                  itemCount: frames.length,
+                  //itemCount: frames_subframes.length,
+                  itemCount: frames_.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index)
                   {
-                    return frames[index].frame;
+                    return frames_[index];
+                    //return frames[index].frame;
                   }),
             ),
           ),
@@ -179,8 +229,33 @@ class _CustStepperState extends State<CustStepper> {
 }
 
 //stepper frame
-
 class StepperFrame{
+  late String _title;
+  late Widget _frame;
+  late List<Widget> _frames;
+
+  StepperFrame({required String title, Widget? frame, List<Widget>? frames})
+  {
+    _title = title;
+    _frame = frame ?? Container();
+    _frames = frames ?? [Container()];
+  }
+
+  Widget get frame => _frame;
+  List<Widget> get frames => _frames;
+
+  set frame(dynamic value) {
+    _frame = value;
+  }
+
+  String get title => _title;
+
+  set title(String value) {
+    _title = value;
+  }
+}
+
+class SubStepperFrame{
   late String _title;
   late Widget _frame;
 

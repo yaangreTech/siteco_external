@@ -19,8 +19,9 @@ var project_id;
 
 var frames = [
   StepperFrame(title: "Configuration setup", frame: Container(child: Center(child: Frame1()))),
-  StepperFrame(title: "Luminare selection – basic logic", frame: Container(child: Frame2())),
-  StepperFrame(title: "fghjk 2", frame: Container(child: Center(child: Text("3")))),
+  StepperFrame(title: "Luminare selection – basic logic 2",
+      frames: [Container(child: Frame2()), Container(child: Container(child: Text("Sub step 3"),),)]),
+  StepperFrame(title: "Luminare selection – basic logic", frame: Container(child: Frame2()),),
 ];
 
 class NewProject extends StatefulWidget {
@@ -70,31 +71,31 @@ Widget Banner (BuildContext context)
           ],
         ),
       ),
-      Row(
-        children: [
-          RedOutlinedButton(onPressed: ()
-          {
-            FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
-          }, child: Row(
-            children: [
-              Text("Copy", style: TextStyle(fontSize: 18, color: red),),
-              SizedBox(width: 15,),
-              Icon(Icons.copy, color: red,)
-            ],
-          )),
-          SizedBox(width: 20,),
-          RedOutlinedButton(onPressed: ()
-          {
-            Share.share(project_id);
-          }, child: Row(
-            children: [
-              Text("Share via Email", style: TextStyle(fontSize: 18, color: red),),
-              SizedBox(width: 15,),
-              Icon(Icons.email_outlined, color: red)
-            ],
-          )),
-        ],
-      ),
+      // Row(
+      //   children: [
+      //     RedOutlinedButton(onPressed: ()
+      //     {
+      //       FlutterClipboard.copy(project_id).then(( value ) => iDCopied(context: context));
+      //     }, child: Row(
+      //       children: [
+      //         Text("Copy", style: TextStyle(fontSize: 18, color: red),),
+      //         SizedBox(width: 15,),
+      //         Icon(Icons.copy, color: red,)
+      //       ],
+      //     )),
+      //     SizedBox(width: 20,),
+      //     RedOutlinedButton(onPressed: ()
+      //     {
+      //       Share.share(project_id);
+      //     }, child: Row(
+      //       children: [
+      //         Text("Share via Email", style: TextStyle(fontSize: 18, color: red),),
+      //         SizedBox(width: 15,),
+      //         Icon(Icons.email_outlined, color: red)
+      //       ],
+      //     )),
+      //   ],
+      // ),
       Row(
         children: [
           IconButton(onPressed: ()
