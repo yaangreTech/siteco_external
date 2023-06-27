@@ -1,16 +1,12 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:siteco_external/frame1.dart';
 import 'package:siteco_external/frame2.dart';
-import 'package:siteco_external/functions/functions.dart';
-import 'package:siteco_external/widgets/buttons.dart';
 import 'package:siteco_external/Consts/colors/colors.dart';
 import 'functions/global_data.dart';
 import 'home.dart';
 import 'widgets/stepper.dart';
-import 'package:share_plus/share_plus.dart';
 
 //creates a global data instance
 GlobalData data = GlobalData();
